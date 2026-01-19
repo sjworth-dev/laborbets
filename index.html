@@ -2522,33 +2522,54 @@
     const categoryTabs = document.querySelectorAll('.category-tab');
     const marketCards = document.querySelectorAll('.market-card[data-category]');
 
-    categoryTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Update active tab
-        categoryTabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+    function filterByCategory(category) {
+      // Update active tab
+      categoryTabs.forEach(t => t.classList.remove('active'));
+      const activeTab = document.querySelector(`.category-tab[data-category="${category}"]`);
+      if (activeTab) activeTab.classList.add('active');
 
-        const category = tab.dataset.category;
-
-        // Filter markets (supports space-separated categories)
-        marketCards.forEach(card => {
-          const cardCategories = card.dataset.category.split(' ');
-          if (category === 'all' || cardCategories.includes(category)) {
-            card.style.display = '';
-            card.style.opacity = '1';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-
-        // Update market count
-        const visibleCount = document.querySelectorAll('.market-card[data-category]:not([style*="display: none"])').length;
-        const badge = document.querySelector('.section-badge');
-        if (badge) {
-          badge.textContent = visibleCount + ' Active Markets';
+      // Filter markets (supports space-separated categories)
+      marketCards.forEach(card => {
+        const cardCategories = card.dataset.category.split(' ');
+        if (category === 'all' || cardCategories.includes(category)) {
+          card.style.display = '';
+          card.style.opacity = '1';
+        } else {
+          card.style.display = 'none';
         }
       });
+
+      // Update market count
+      const visibleCount = document.querySelectorAll('.market-card[data-category]:not([style*="display: none"])').length;
+      const badge = document.querySelector('.section-badge');
+      if (badge) {
+        badge.textContent = visibleCount + ' Active Markets';
+      }
+
+      // Scroll to markets section if coming from URL param
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('cat') && category !== 'all') {
+        document.querySelector('.markets').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const category = tab.dataset.category;
+        // Update URL without reload
+        const url = category === 'all' ? window.location.pathname : `?cat=${category}`;
+        window.history.pushState({}, '', url);
+        filterByCategory(category);
+      });
     });
+
+    // Check for category in URL on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlCategory = urlParams.get('cat');
+    if (urlCategory) {
+      filterByCategory(urlCategory);
+    }
   </script>
 </body>
 </html>
