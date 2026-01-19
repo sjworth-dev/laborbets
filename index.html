@@ -1191,14 +1191,20 @@
       }
 
       .hero-video {
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
         object-fit: cover;
         object-position: center center;
       }
 
       .hero-video-overlay {
-        background: linear-gradient(180deg, rgba(2, 6, 23, 0.7) 0%, rgba(2, 6, 23, 0.85) 100%);
+        background: linear-gradient(180deg, rgba(2, 6, 23, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
       }
 
       .ticker-container {
