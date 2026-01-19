@@ -366,6 +366,29 @@
       box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
     }
 
+    .name-section {
+      margin-bottom: 1.25rem;
+    }
+
+    .name-input {
+      width: 100%;
+      background: var(--color-dark);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: var(--color-text);
+      font-size: 0.95rem;
+    }
+
+    .name-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .name-input::placeholder {
+      color: var(--color-text-muted);
+    }
+
     .amount-section {
       margin-bottom: 1.5rem;
     }
@@ -710,6 +733,10 @@
           <div class="outcome-buttons">
             <button class="outcome-btn yes active" id="outcome-yes-btn">Yes <span id="yes-price">--¢</span></button>
             <button class="outcome-btn no" id="outcome-no-btn">No <span id="no-price">--¢</span></button>
+          </div>
+
+          <div class="name-section">
+            <input type="text" class="name-input" id="trader-name" placeholder="Enter your name to trade">
           </div>
 
           <div class="amount-section">
@@ -1172,29 +1199,109 @@
 
     document.getElementById('resolution-content').innerHTML = getResolution(marketId);
 
-    // Activity list - starts empty
+    // Activity list with localStorage persistence
     const activityList = document.getElementById('activity-list');
-    activityList.innerHTML = '<div class="activity-empty">No activity yet — be the first to trade!</div>';
+    const STORAGE_KEY = 'laborbets_trades';
 
-    function addActivity(outcome, amount, price) {
-      // Remove empty message if present
-      const emptyMsg = activityList.querySelector('.activity-empty');
-      if (emptyMsg) emptyMsg.remove();
+    // Load existing trades from localStorage
+    function loadTrades() {
+      const allTrades = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      // Filter trades for this market
+      const marketTrades = allTrades.filter(t => t.marketId === marketId);
 
-      const shares = Math.floor(amount / (price / 100));
-      const outcomeClass = outcome === 'Yes' ? 'yes' : 'no';
+      if (marketTrades.length === 0) {
+        activityList.innerHTML = '<div class="activity-empty">No activity yet — be the first to trade!</div>';
+        document.getElementById('activity-count').textContent = '0 trades';
+      } else {
+        activityList.innerHTML = '';
+        // Show most recent first
+        marketTrades.reverse().forEach(trade => {
+          displayTrade(trade);
+        });
+        document.getElementById('activity-count').textContent = marketTrades.length + ' trades';
+      }
+    }
+
+    function displayTrade(trade) {
+      const outcomeClass = trade.outcome === 'Yes' ? 'yes' : 'no';
       const avatars = ['🎯', '🔮', '👶', '🍼', '🎰', '🏆', '💰', '📈'];
-      const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+      const avatar = avatars[Math.abs(trade.name.charCodeAt(0)) % avatars.length];
+
+      const timeAgo = getTimeAgo(trade.timestamp);
 
       const activityItem = document.createElement('div');
       activityItem.className = 'activity-item';
       activityItem.innerHTML = `
         <div class="activity-avatar">${avatar}</div>
         <div class="activity-details">
-          <div class="activity-name">You</div>
+          <div class="activity-name">${escapeHtml(trade.name)}</div>
+          <div class="activity-action">Bought <span class="${outcomeClass}">${trade.shares} ${trade.outcome}</span> at ${trade.price}¢</div>
+        </div>
+        <div class="activity-time">${timeAgo}</div>
+      `;
+      activityList.appendChild(activityItem);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function getTimeAgo(timestamp) {
+      const now = Date.now();
+      const diff = now - timestamp;
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+
+      if (minutes < 1) return 'just now';
+      if (minutes < 60) return minutes + 'm ago';
+      if (hours < 24) return hours + 'h ago';
+      return days + 'd ago';
+    }
+
+    function saveTrade(name, outcome, amount, price, shares) {
+      const allTrades = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const trade = {
+        marketId: marketId,
+        marketTitle: market.title,
+        name: name,
+        outcome: outcome,
+        amount: amount,
+        price: price,
+        shares: shares,
+        timestamp: Date.now()
+      };
+      allTrades.push(trade);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(allTrades));
+      return trade;
+    }
+
+    function addActivity(name, outcome, amount, price) {
+      // Remove empty message if present
+      const emptyMsg = activityList.querySelector('.activity-empty');
+      if (emptyMsg) emptyMsg.remove();
+
+      const shares = Math.floor(amount / (price / 100));
+
+      // Save to localStorage
+      const trade = saveTrade(name, outcome, amount, price, shares);
+
+      // Display the new trade at the top
+      const outcomeClass = outcome === 'Yes' ? 'yes' : 'no';
+      const avatars = ['🎯', '🔮', '👶', '🍼', '🎰', '🏆', '💰', '📈'];
+      const avatar = avatars[Math.abs(name.charCodeAt(0)) % avatars.length];
+
+      const activityItem = document.createElement('div');
+      activityItem.className = 'activity-item';
+      activityItem.innerHTML = `
+        <div class="activity-avatar">${avatar}</div>
+        <div class="activity-details">
+          <div class="activity-name">${escapeHtml(name)}</div>
           <div class="activity-action">Bought <span class="${outcomeClass}">${shares} ${outcome}</span> at ${price}¢</div>
         </div>
-        <div class="activity-amount">$${amount}</div>
+        <div class="activity-time">just now</div>
       `;
 
       // Add to top of list
@@ -1204,6 +1311,9 @@
       const count = activityList.querySelectorAll('.activity-item').length;
       document.getElementById('activity-count').textContent = count + ' trades';
     }
+
+    // Load trades on page load
+    loadTrades();
 
     // Chart
     const ctx = document.getElementById('oddsChart').getContext('2d');
@@ -1340,20 +1450,31 @@
     }
 
     function submitTrade() {
+      const nameInput = document.getElementById('trader-name');
+      const traderName = nameInput.value.trim();
+
+      if (!traderName) {
+        alert('Please enter your name to place a trade!');
+        nameInput.focus();
+        return;
+      }
+
       if (tradeAmount === 0) {
         alert('Please select an amount to trade!');
         return;
       }
+
       const outcome = selectedOutcome === 'yes' ? 'Yes' : 'No';
       const price = selectedOutcome === 'yes' ? yesOdds : noOdds;
       const shares = Math.floor(tradeAmount / (price / 100));
 
-      // Add to activity feed
-      addActivity(outcome, tradeAmount, price);
+      // Add to activity feed with name
+      addActivity(traderName, outcome, tradeAmount, price);
 
-      alert(`🎉 Trade submitted!\n\nYou bought ${shares} shares of "${outcome}" at ${price}¢\nTotal: $${tradeAmount}\n\n(This is a parody - no real money involved!)`);
+      alert(`🎉 Trade submitted!\n\n${traderName} bought ${shares} shares of "${outcome}" at ${price}¢\nTotal: $${tradeAmount}\n\n(This is a parody - no real money involved!)`);
       tradeAmount = 0;
       updateAmountDisplay();
+      // Don't clear name so they can make more trades easily
     }
 
     // Buy button click handlers (chart section)
