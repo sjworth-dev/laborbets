@@ -115,6 +115,89 @@
       font-size: 1.75rem;
     }
 
+    /* Category Navigation */
+    .category-nav {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(2, 6, 23, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0.75rem 2rem;
+    }
+
+    .category-nav-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .category-nav-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-tab {
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .category-tab:hover {
+      color: var(--color-text);
+      background: var(--color-card);
+    }
+
+    .category-tab.active {
+      color: var(--color-text);
+      background: var(--color-card);
+      border-color: var(--color-primary);
+    }
+
+    .category-tab.syd {
+      border-color: var(--color-syd);
+    }
+
+    .category-tab.syd.active {
+      background: rgba(244, 114, 182, 0.15);
+      border-color: var(--color-syd);
+      color: var(--color-syd);
+    }
+
+    .category-tab.gigi {
+      border-color: var(--color-gigi);
+    }
+
+    .category-tab.gigi.active {
+      background: rgba(167, 139, 250, 0.15);
+      border-color: var(--color-gigi);
+      color: var(--color-gigi);
+    }
+
+    .category-tab.combined.active {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .category-tab.trending.active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--color-warning);
+      color: var(--color-warning);
+    }
+
     .nav-stats {
       display: flex;
       gap: 2rem;
@@ -147,7 +230,7 @@
 
     /* Hero Section */
     .hero {
-      padding: 8rem 0 4rem;
+      padding: 10rem 0 4rem;
       text-align: center;
       position: relative;
       min-height: 100vh;
@@ -483,6 +566,7 @@
       border: 1px solid var(--color-border);
       border-radius: 16px;
       padding: 1.5rem;
+      transition: all 0.3s ease;
       transition: all 0.3s ease;
     }
 
@@ -997,8 +1081,18 @@
       }
 
       .hero {
-        padding: 6rem 0 2rem;
+        padding: 8rem 0 2rem;
         min-height: auto;
+      }
+
+      .category-nav {
+        top: 60px;
+        padding: 0.5rem 1rem;
+      }
+
+      .category-tab {
+        padding: 0.4rem 1rem;
+        font-size: 0.8rem;
       }
 
       .hero-video-overlay {
@@ -1062,6 +1156,16 @@
       </div>
     </div>
   </nav>
+
+  <div class="category-nav">
+    <div class="category-nav-content">
+      <button class="category-tab active" data-category="all">All Markets</button>
+      <button class="category-tab syd" data-category="syd">Syd 👧</button>
+      <button class="category-tab gigi" data-category="gigi">Gigi 👦</button>
+      <button class="category-tab combined" data-category="combined">Combined</button>
+      <button class="category-tab trending" data-category="trending">🔥 Trending</button>
+    </div>
+  </div>
 
   <main class="container">
     <!-- Hero -->
@@ -1158,7 +1262,7 @@
       </div>
 
       <div class="markets-grid">
-        <a href="markets/who-delivers-first.html" class="market-card">
+        <a href="markets/who-delivers-first.html" class="market-card" data-category="trending">
           <div class="market-header">
             <h3 class="market-title">Who delivers first?</h3>
             <span class="market-volume">47 predictions</span>
@@ -1179,7 +1283,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=labor-before-feb26" class="market-card">
+        <a href="markets/market.html?m=labor-before-feb26" class="market-card" data-category="trending">
           <div class="market-header">
             <h3 class="market-title">Will anyone go into labor before Feb 26?</h3>
             <span class="market-volume">31 predictions</span>
@@ -1200,7 +1304,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=same-day-delivery" class="market-card">
+        <a href="markets/market.html?m=same-day-delivery" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Same day delivery? (Both on Feb 26)</h3>
             <span class="market-volume">28 predictions</span>
@@ -1217,7 +1321,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=who-delivers-first" class="market-card">
+        <a href="markets/market.html?m=who-delivers-first" class="market-card" data-category="trending">
           <div class="market-header">
             <h3 class="market-title">If same day, who delivers first?</h3>
             <span class="market-volume">22 predictions</span>
@@ -1234,7 +1338,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=dr-melissa-cruise" class="market-card">
+        <a href="markets/market.html?m=dr-melissa-cruise" class="market-card" data-category="trending">
           <div class="market-header">
             <h3 class="market-title">Will Dr. Melissa make her cruise?</h3>
             <span class="market-volume">35 predictions</span>
@@ -1251,7 +1355,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=age-gap" class="market-card">
+        <a href="markets/market.html?m=age-gap" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Total time between births?</h3>
             <span class="market-volume">19 predictions</span>
@@ -1273,7 +1377,7 @@
         </a>
 
         <!-- Baby Stats Markets -->
-        <a href="markets/market.html?m=which-baby-heavier" class="market-card">
+        <a href="markets/market.html?m=which-baby-heavier" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Which baby weighs more at birth?</h3>
             <span class="market-volume">24 predictions</span>
@@ -1290,7 +1394,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=gigi-boy-weight" class="market-card">
+        <a href="markets/market.html?m=gigi-boy-weight" class="market-card" data-category="gigi">
           <div class="market-header">
             <h3 class="market-title">Gigi's Boy: Birth weight?</h3>
             <span class="market-volume">18 predictions</span>
@@ -1311,7 +1415,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=syd-girl-weight" class="market-card">
+        <a href="markets/market.html?m=syd-girl-weight" class="market-card" data-category="syd">
           <div class="market-header">
             <h3 class="market-title">Syd's Girl: Birth weight?</h3>
             <span class="market-volume">16 predictions</span>
@@ -1332,7 +1436,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=which-baby-longer" class="market-card">
+        <a href="markets/market.html?m=which-baby-longer" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Which baby is longer at birth?</h3>
             <span class="market-volume">14 predictions</span>
@@ -1349,7 +1453,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=first-baby-ampm" class="market-card">
+        <a href="markets/market.html?m=first-baby-ampm" class="market-card" data-category="trending">
           <div class="market-header">
             <h3 class="market-title">First baby born AM or PM?</h3>
             <span class="market-volume">21 predictions</span>
@@ -1366,7 +1470,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=combined-weight-15lbs" class="market-card">
+        <a href="markets/market.html?m=combined-weight-15lbs" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Combined birth weight over 15 lbs?</h3>
             <span class="market-volume">12 predictions</span>
@@ -1383,7 +1487,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=which-baby-hair" class="market-card">
+        <a href="markets/market.html?m=which-baby-hair" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Which baby has more hair?</h3>
             <span class="market-volume">27 predictions</span>
@@ -1404,7 +1508,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=combined-length-40in" class="market-card">
+        <a href="markets/market.html?m=combined-length-40in" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Combined birth length over 40 inches?</h3>
             <span class="market-volume">14 predictions</span>
@@ -1421,7 +1525,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=total-labor-time" class="market-card">
+        <a href="markets/market.html?m=total-labor-time" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Total labor time (both combined)?</h3>
             <span class="market-volume">23 predictions</span>
@@ -1442,7 +1546,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=same-calendar-day" class="market-card">
+        <a href="markets/market.html?m=same-calendar-day" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Births within same calendar day?</h3>
             <span class="market-volume">31 predictions</span>
@@ -1459,7 +1563,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=combined-apgar" class="market-card">
+        <a href="markets/market.html?m=combined-apgar" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Combined Apgar scores (1 min) over 16?</h3>
             <span class="market-volume">11 predictions</span>
@@ -1476,7 +1580,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=age-gap-hours" class="market-card">
+        <a href="markets/market.html?m=age-gap-hours" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Age gap between babies?</h3>
             <span class="market-volume">29 predictions</span>
@@ -1497,7 +1601,7 @@
           </div>
         </a>
 
-        <a href="markets/market.html?m=both-before-midnight" class="market-card">
+        <a href="markets/market.html?m=both-before-midnight" class="market-card" data-category="combined">
           <div class="market-header">
             <h3 class="market-title">Both babies born before midnight Feb 26?</h3>
             <span class="market-volume">26 predictions</span>
@@ -1701,6 +1805,37 @@
         el.textContent = gigiOdds.toFixed(0) + '%';
       });
     }, 5000);
+
+    // Category Filtering
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const marketCards = document.querySelectorAll('.market-card[data-category]');
+
+    categoryTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active tab
+        categoryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const category = tab.dataset.category;
+
+        // Filter markets
+        marketCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = '';
+            card.style.opacity = '1';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Update market count
+        const visibleCount = document.querySelectorAll('.market-card[data-category]:not([style*="display: none"])').length;
+        const badge = document.querySelector('.section-badge');
+        if (badge) {
+          badge.textContent = visibleCount + ' Active Markets';
+        }
+      });
+    });
   </script>
 </body>
 </html>
