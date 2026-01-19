@@ -512,6 +512,20 @@
       color: var(--color-text-muted);
     }
 
+    .activity-amount {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-accent);
+    }
+
+    .activity-empty {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      padding: 2rem 1rem;
+    }
+
     /* Resolution Section */
     .resolution-section {
       margin-top: 2rem;
@@ -718,7 +732,7 @@
         <div class="activity-card">
           <div class="activity-title">
             Recent Activity
-            <span class="activity-count" id="activity-count">-- total</span>
+            <span class="activity-count" id="activity-count">0 trades</span>
           </div>
           <div class="activity-list" id="activity-list">
             <!-- Populated by JS -->
@@ -1110,7 +1124,6 @@
     document.getElementById('yes-price').textContent = yesOdds + '¢';
     document.getElementById('no-price').textContent = noOdds + '¢';
 
-    document.getElementById('activity-count').textContent = market.predictions + ' total';
 
     // Update title
     document.title = market.title + ' | LaborBets';
@@ -1159,28 +1172,37 @@
 
     document.getElementById('resolution-content').innerHTML = getResolution(marketId);
 
-    // Generate random activity
-    const names = ['BabyWhisperer', 'TheOracle', 'Anonymous', 'LuckyGuesser', 'PredictionPro', 'DataNerd', 'Gambler42', 'MomKnowsBest'];
-    const times = ['2m ago', '5m ago', '12m ago', '18m ago', '25m ago', '1h ago', '2h ago', '3h ago'];
+    // Activity list - starts empty
     const activityList = document.getElementById('activity-list');
+    activityList.innerHTML = '<div class="activity-empty">No activity yet — be the first to trade!</div>';
 
-    for (let i = 0; i < 6; i++) {
-      const isYes = Math.random() > 0.5;
-      const name = names[Math.floor(Math.random() * names.length)];
-      const time = times[i];
-      const pick = isYes ? market.option1.name : market.option2.name;
-      const pickClass = isYes ? 'yes' : 'no';
+    function addActivity(outcome, amount, price) {
+      // Remove empty message if present
+      const emptyMsg = activityList.querySelector('.activity-empty');
+      if (emptyMsg) emptyMsg.remove();
 
-      activityList.innerHTML += `
-        <div class="activity-item">
-          <div class="activity-avatar">${['🎯', '🔮', '👶', '🍼', '🎰', '🏆'][i]}</div>
-          <div class="activity-details">
-            <div class="activity-name">${name}</div>
-            <div class="activity-action">Predicted <span class="${pickClass}">${pick}</span></div>
-          </div>
-          <div class="activity-time">${time}</div>
+      const shares = Math.floor(amount / (price / 100));
+      const outcomeClass = outcome === 'Yes' ? 'yes' : 'no';
+      const avatars = ['🎯', '🔮', '👶', '🍼', '🎰', '🏆', '💰', '📈'];
+      const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+
+      const activityItem = document.createElement('div');
+      activityItem.className = 'activity-item';
+      activityItem.innerHTML = `
+        <div class="activity-avatar">${avatar}</div>
+        <div class="activity-details">
+          <div class="activity-name">You</div>
+          <div class="activity-action">Bought <span class="${outcomeClass}">${shares} ${outcome}</span> at ${price}¢</div>
         </div>
+        <div class="activity-amount">$${amount}</div>
       `;
+
+      // Add to top of list
+      activityList.insertBefore(activityItem, activityList.firstChild);
+
+      // Update activity count
+      const count = activityList.querySelectorAll('.activity-item').length;
+      document.getElementById('activity-count').textContent = count + ' trades';
     }
 
     // Chart
@@ -1325,6 +1347,10 @@
       const outcome = selectedOutcome === 'yes' ? 'Yes' : 'No';
       const price = selectedOutcome === 'yes' ? yesOdds : noOdds;
       const shares = Math.floor(tradeAmount / (price / 100));
+
+      // Add to activity feed
+      addActivity(outcome, tradeAmount, price);
+
       alert(`🎉 Trade submitted!\n\nYou bought ${shares} shares of "${outcome}" at ${price}¢\nTotal: $${tradeAmount}\n\n(This is a parody - no real money involved!)`);
       tradeAmount = 0;
       updateAmountDisplay();
