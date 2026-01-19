@@ -282,79 +282,134 @@
       padding: 1.5rem;
     }
 
-    .trade-title {
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    .trade-tabs {
+    .trade-header {
       display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
     }
 
-    .trade-tab {
-      flex: 1;
-      background: var(--color-dark);
+    .trade-mode-tabs {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .trade-mode-tab {
+      background: none;
       border: none;
-      padding: 0.75rem;
-      border-radius: 8px;
+      font-size: 1rem;
       font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .trade-mode-tab.active {
+      color: var(--color-text);
+      border-bottom-color: var(--color-text);
+    }
+
+    .trade-type-select {
+      background: var(--color-dark);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .outcome-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .outcome-btn {
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 2px solid transparent;
       cursor: pointer;
       transition: all 0.2s;
+    }
+
+    .outcome-btn.yes {
+      background: #10b981;
+      color: white;
+    }
+
+    .outcome-btn.yes.active {
+      background: #10b981;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+    }
+
+    .outcome-btn.yes:not(.active) {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+    }
+
+    .outcome-btn.no {
+      background: rgba(148, 163, 184, 0.2);
       color: var(--color-text-muted);
     }
 
-    .trade-tab.yes.active {
-      background: rgba(16, 185, 129, 0.2);
-      color: var(--color-accent);
+    .outcome-btn.no.active {
+      background: #ef4444;
+      color: white;
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
     }
 
-    .trade-tab.no.active {
-      background: rgba(239, 68, 68, 0.2);
-      color: #ef4444;
+    .amount-section {
+      margin-bottom: 1.5rem;
     }
 
-    .trade-input-group { margin-bottom: 1rem; }
+    .amount-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
 
-    .trade-label {
-      font-size: 0.8rem;
+    .amount-label {
+      font-size: 1rem;
+      color: var(--color-text);
+    }
+
+    .amount-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
       color: var(--color-text-muted);
-      margin-bottom: 0.5rem;
-      display: block;
     }
 
-    .trade-input {
-      width: 100%;
+    .amount-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .amount-btn {
+      flex: 1;
+      padding: 0.6rem 0.75rem;
       background: var(--color-dark);
       border: 1px solid var(--color-border);
       border-radius: 8px;
-      padding: 0.75rem;
       color: var(--color-text);
-      font-size: 1rem;
-    }
-
-    .trade-input:focus {
-      outline: none;
-      border-color: var(--color-primary);
-    }
-
-    .trade-summary {
-      background: var(--color-dark);
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .trade-summary-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.25rem 0;
       font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .trade-summary-row span:first-child {
-      color: var(--color-text-muted);
+    .amount-btn:hover {
+      background: var(--color-card-hover);
+      border-color: var(--color-primary);
     }
 
     .trade-btn {
@@ -363,23 +418,29 @@
       border: none;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.2s;
+      background: #3b82f6;
       color: white;
-    }
-
-    .trade-btn.yes {
-      background: linear-gradient(135deg, var(--color-accent), #059669);
-    }
-
-    .trade-btn.no {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      margin-bottom: 1rem;
     }
 
     .trade-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .trade-disclaimer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .trade-disclaimer a {
+      color: var(--color-text-muted);
+      text-decoration: underline;
     }
 
     .activity-card {
@@ -621,39 +682,37 @@
 
       <div class="sidebar">
         <div class="trade-card">
-          <div class="trade-title">Make a Prediction</div>
-          <div class="trade-tabs">
-            <button class="trade-tab yes active" onclick="selectTradeTab('yes')">Yes</button>
-            <button class="trade-tab no" onclick="selectTradeTab('no')">No</button>
-          </div>
-          <div class="trade-input-group">
-            <label class="trade-label">Your Name</label>
-            <input type="text" class="trade-input" placeholder="Enter name">
-          </div>
-          <div class="trade-input-group">
-            <label class="trade-label">Confidence Level</label>
-            <select class="trade-input">
-              <option>Low - Just guessing</option>
-              <option>Medium - I have a feeling</option>
-              <option>High - I'm certain</option>
-              <option>Insider Info 👀</option>
+          <div class="trade-header">
+            <div class="trade-mode-tabs">
+              <button class="trade-mode-tab active">Buy</button>
+              <button class="trade-mode-tab">Sell</button>
+            </div>
+            <select class="trade-type-select">
+              <option>Market</option>
+              <option>Limit</option>
             </select>
           </div>
-          <div class="trade-summary">
-            <div class="trade-summary-row">
-              <span>Your Pick</span>
-              <span id="pick-display" style="color: var(--color-accent);">Yes</span>
+
+          <div class="outcome-buttons">
+            <button class="outcome-btn yes active" id="outcome-yes-btn">Yes <span id="yes-price">--¢</span></button>
+            <button class="outcome-btn no" id="outcome-no-btn">No <span id="no-price">--¢</span></button>
+          </div>
+
+          <div class="amount-section">
+            <div class="amount-header">
+              <span class="amount-label">Amount</span>
+              <span class="amount-value" id="amount-display">$0</span>
             </div>
-            <div class="trade-summary-row">
-              <span>Current Odds</span>
-              <span id="odds-display">--</span>
-            </div>
-            <div class="trade-summary-row">
-              <span>Potential Bragging Rights</span>
-              <span>Maximum</span>
+            <div class="amount-buttons">
+              <button class="amount-btn" onclick="addAmount(1)">+$1</button>
+              <button class="amount-btn" onclick="addAmount(20)">+$20</button>
+              <button class="amount-btn" onclick="addAmount(100)">+$100</button>
+              <button class="amount-btn" onclick="setMaxAmount()">Max</button>
             </div>
           </div>
-          <button class="trade-btn yes" id="trade-btn" onclick="submitPrediction()">Predict Yes</button>
+
+          <button class="trade-btn" id="trade-btn" onclick="submitTrade()">Trade</button>
+          <p class="trade-disclaimer">By trading, you agree to the <a href="#">Terms of Use</a>.</p>
         </div>
 
         <div class="activity-card">
@@ -1047,7 +1106,10 @@
     document.getElementById('buy-yes-btn').textContent = 'Buy Yes ' + yesOdds + '¢';
     document.getElementById('buy-no-btn').textContent = 'Buy No ' + noOdds + '¢';
 
-    document.getElementById('odds-display').textContent = market.option1.odds + '%';
+    // Trade card prices
+    document.getElementById('yes-price').textContent = yesOdds + '¢';
+    document.getElementById('no-price').textContent = noOdds + '¢';
+
     document.getElementById('activity-count').textContent = market.predictions + ' total';
 
     // Update title
@@ -1210,52 +1272,75 @@
       }
     });
 
-    // Trade Tab Selection
-    let selectedPick = 'yes';
+    // Trade Card Logic
+    let selectedOutcome = 'yes';
+    let tradeAmount = 0;
 
-    function selectTradeTab(pick) {
-      selectedPick = pick;
-      document.querySelectorAll('.trade-tab').forEach(t => t.classList.remove('active'));
-      document.querySelector(`.trade-tab.${pick}`).classList.add('active');
+    // Outcome button selection
+    document.getElementById('outcome-yes-btn').addEventListener('click', function() {
+      selectedOutcome = 'yes';
+      this.classList.add('active');
+      document.getElementById('outcome-no-btn').classList.remove('active');
+      // Update button styles
+      this.style.background = '#10b981';
+      this.style.color = 'white';
+      document.getElementById('outcome-no-btn').style.background = 'rgba(148, 163, 184, 0.2)';
+      document.getElementById('outcome-no-btn').style.color = '#94a3b8';
+    });
 
-      const btn = document.getElementById('trade-btn');
-      const pickDisplay = document.getElementById('pick-display');
-      const oddsDisplay = document.getElementById('odds-display');
+    document.getElementById('outcome-no-btn').addEventListener('click', function() {
+      selectedOutcome = 'no';
+      this.classList.add('active');
+      document.getElementById('outcome-yes-btn').classList.remove('active');
+      // Update button styles
+      this.style.background = '#ef4444';
+      this.style.color = 'white';
+      document.getElementById('outcome-yes-btn').style.background = 'rgba(16, 185, 129, 0.15)';
+      document.getElementById('outcome-yes-btn').style.color = '#10b981';
+    });
 
-      btn.className = `trade-btn ${pick}`;
+    // Amount functions
+    function addAmount(value) {
+      tradeAmount += value;
+      updateAmountDisplay();
+    }
 
-      if (pick === 'yes') {
-        pickDisplay.style.color = '#10b981';
-        pickDisplay.textContent = market.option1.name;
-        oddsDisplay.textContent = market.option1.odds + '%';
-        btn.textContent = `Predict ${market.option1.name}`;
-      } else {
-        pickDisplay.style.color = '#ef4444';
-        pickDisplay.textContent = market.option2.name;
-        oddsDisplay.textContent = market.option2.odds + '%';
-        btn.textContent = `Predict ${market.option2.name}`;
+    function setMaxAmount() {
+      tradeAmount = 1000; // Fake max
+      updateAmountDisplay();
+    }
+
+    function updateAmountDisplay() {
+      document.getElementById('amount-display').textContent = '$' + tradeAmount;
+      // Update text color when amount > 0
+      const display = document.getElementById('amount-display');
+      display.style.color = tradeAmount > 0 ? '#f8fafc' : '#94a3b8';
+    }
+
+    function submitTrade() {
+      if (tradeAmount === 0) {
+        alert('Please select an amount to trade!');
+        return;
       }
+      const outcome = selectedOutcome === 'yes' ? 'Yes' : 'No';
+      const price = selectedOutcome === 'yes' ? yesOdds : noOdds;
+      const shares = Math.floor(tradeAmount / (price / 100));
+      alert(`🎉 Trade submitted!\n\nYou bought ${shares} shares of "${outcome}" at ${price}¢\nTotal: $${tradeAmount}\n\n(This is a parody - no real money involved!)`);
+      tradeAmount = 0;
+      updateAmountDisplay();
     }
 
-    // Initialize button text
-    document.getElementById('trade-btn').textContent = `Predict ${market.option1.name}`;
-
-    function submitPrediction() {
-      const pick = selectedPick === 'yes' ? market.option1.name : market.option2.name;
-      alert(`🎉 Prediction submitted for "${pick}"! Good luck!`);
-    }
-
-    // Buy button click handlers
+    // Buy button click handlers (chart section)
     document.getElementById('buy-yes-btn').addEventListener('click', function() {
       this.classList.add('active');
       document.getElementById('buy-no-btn').classList.remove('active');
-      selectTradeTab('yes');
+      document.getElementById('outcome-yes-btn').click();
     });
 
     document.getElementById('buy-no-btn').addEventListener('click', function() {
       this.classList.add('active');
       document.getElementById('buy-yes-btn').classList.remove('active');
-      selectTradeTab('no');
+      document.getElementById('outcome-no-btn').click();
     });
   </script>
 </body>
