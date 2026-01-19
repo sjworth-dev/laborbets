@@ -366,6 +366,7 @@
     .hero-content {
       position: relative;
       z-index: 1;
+      padding-top: 2rem;
     }
 
     .hero-badge {
@@ -1190,6 +1191,17 @@
         padding: 2rem 1rem;
         min-height: 70vh;
         width: calc(100% + 2rem);
+        justify-content: flex-start;
+      }
+
+      .hero-content {
+        padding-top: 1rem;
+      }
+
+      .hero-badge {
+        font-size: 0.65rem;
+        padding: 0.4rem 0.8rem;
+        margin-bottom: 1rem;
       }
 
       .hero-video {
@@ -1415,7 +1427,11 @@
       </video>
       <div class="hero-video-overlay"></div>
       <div class="hero-content">
-        <h1 class="fade-in">Who Delivers <span>First?</span></h1>
+        <div class="hero-badge fade-in">
+          <span class="live-dot"></span>
+          LIVE PREDICTION MARKET
+        </div>
+        <h1 class="fade-in fade-in-delay-1">Who Delivers <span>First?</span></h1>
         <p class="hero-subtitle fade-in fade-in-delay-2">Due dates are just suggestions. Your prediction isn't.</p>
       </div>
     </section>
