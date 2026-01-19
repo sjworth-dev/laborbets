@@ -149,6 +149,37 @@
     .hero {
       padding: 8rem 0 4rem;
       text-align: center;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .hero-video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(2, 6, 23, 0.7) 0%, rgba(2, 6, 23, 0.85) 100%);
+      z-index: -1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
 
     .hero-badge {
@@ -1029,12 +1060,18 @@
   <main class="container">
     <!-- Hero -->
     <section class="hero">
-      <div class="hero-badge fade-in">
-        <span class="live-dot"></span>
-        LIVE PREDICTION MARKET
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="hero-video.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge fade-in">
+          <span class="live-dot"></span>
+          LIVE PREDICTION MARKET
+        </div>
+        <h1 class="fade-in fade-in-delay-1">Who Delivers <span>First?</span></h1>
+        <p class="hero-subtitle fade-in fade-in-delay-2">Two friends. Two babies. One induction date. Place your prediction in the ultimate baby race.</p>
       </div>
-      <h1 class="fade-in fade-in-delay-1">Who Delivers <span>First?</span></h1>
-      <p class="hero-subtitle fade-in fade-in-delay-2">Two friends. Two babies. One induction date. Place your prediction in the ultimate baby race.</p>
     </section>
 
     <!-- Main Countdown -->
@@ -1104,24 +1141,6 @@
           <div class="odds-label">Current Odds</div>
           <div class="odds-value">58%</div>
         </div>
-      </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="video-section">
-      <div class="video-header">
-        <span class="video-live-badge">
-          <span class="live-dot"></span>
-          EXCLUSIVE FOOTAGE
-        </span>
-        <h2 class="video-title">The Competitors Await</h2>
-        <p class="video-subtitle">Actual footage of Syd & Gigi preparing for delivery day</p>
-      </div>
-      <div class="video-container">
-        <video autoplay muted loop playsinline class="feature-video">
-          <source src="hero-video.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
       </div>
     </section>
 
