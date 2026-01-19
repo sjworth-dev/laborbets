@@ -248,81 +248,153 @@
       padding: 1.5rem;
     }
 
-    .trade-title {
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    .trade-tabs {
+    .trade-header {
       display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
     }
 
-    .trade-tab {
-      flex: 1;
-      background: var(--color-dark);
+    .trade-mode-tabs {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .trade-mode-tab {
+      background: none;
       border: none;
-      padding: 0.75rem;
-      border-radius: 8px;
+      font-size: 1rem;
       font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .trade-mode-tab.active {
+      color: var(--color-text);
+      border-bottom-color: var(--color-text);
+    }
+
+    .trade-type-select {
+      background: var(--color-dark);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .outcome-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .outcome-btn {
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 2px solid transparent;
       cursor: pointer;
       transition: all 0.2s;
-      color: var(--color-text-muted);
     }
 
-    .trade-tab.syd.active {
-      background: rgba(244, 114, 182, 0.2);
+    .outcome-btn.syd {
+      background: rgba(244, 114, 182, 0.15);
       color: var(--color-syd);
     }
 
-    .trade-tab.gigi.active {
-      background: rgba(167, 139, 250, 0.2);
+    .outcome-btn.syd.active {
+      background: var(--color-syd);
+      color: white;
+      border-color: var(--color-syd);
+      box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.3);
+    }
+
+    .outcome-btn.gigi {
+      background: rgba(167, 139, 250, 0.15);
       color: var(--color-gigi);
     }
 
-    .trade-input-group {
-      margin-bottom: 1rem;
+    .outcome-btn.gigi.active {
+      background: var(--color-gigi);
+      color: white;
+      border-color: var(--color-gigi);
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
     }
 
-    .trade-label {
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-      margin-bottom: 0.5rem;
-      display: block;
+    .name-section {
+      margin-bottom: 1.25rem;
     }
 
-    .trade-input {
+    .name-input {
       width: 100%;
       background: var(--color-dark);
       border: 1px solid var(--color-border);
       border-radius: 8px;
-      padding: 0.75rem;
+      padding: 0.75rem 1rem;
       color: var(--color-text);
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
-    .trade-input:focus {
+    .name-input:focus {
       outline: none;
       border-color: var(--color-primary);
     }
 
-    .trade-summary {
-      background: var(--color-dark);
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
+    .name-input::placeholder {
+      color: var(--color-text-muted);
     }
 
-    .trade-summary-row {
+    .amount-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .amount-header {
       display: flex;
       justify-content: space-between;
-      padding: 0.25rem 0;
-      font-size: 0.9rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
     }
 
-    .trade-summary-row span:first-child {
+    .amount-label {
+      font-size: 1rem;
+      color: var(--color-text);
+    }
+
+    .amount-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
       color: var(--color-text-muted);
+    }
+
+    .amount-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .amount-btn {
+      flex: 1;
+      padding: 0.6rem 0.75rem;
+      background: var(--color-dark);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      color: var(--color-text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .amount-btn:hover {
+      background: var(--color-card-hover);
+      border-color: var(--color-primary);
     }
 
     .trade-btn {
@@ -331,22 +403,29 @@
       border: none;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.2s;
-    }
-
-    .trade-btn.syd {
-      background: linear-gradient(135deg, var(--color-syd), var(--color-secondary));
-    }
-
-    .trade-btn.gigi {
-      background: linear-gradient(135deg, var(--color-gigi), var(--color-primary));
+      background: #3b82f6;
+      color: white;
+      margin-bottom: 1rem;
     }
 
     .trade-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .trade-disclaimer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .trade-disclaimer a {
+      color: var(--color-text-muted);
+      text-decoration: underline;
     }
 
     .activity-card {
@@ -420,6 +499,13 @@
     .activity-time {
       font-size: 0.75rem;
       color: var(--color-text-muted);
+    }
+
+    .activity-empty {
+      text-align: center;
+      color: var(--color-text-muted);
+      font-size: 0.85rem;
+      padding: 2rem 1rem;
     }
 
     .info-section {
@@ -517,95 +603,50 @@
 
       <div class="sidebar">
         <div class="trade-card">
-          <div class="trade-title">Make a Prediction</div>
-          <div class="trade-tabs">
-            <button class="trade-tab syd active" onclick="selectTradeTab('syd')">Syd</button>
-            <button class="trade-tab gigi" onclick="selectTradeTab('gigi')">Gigi</button>
-          </div>
-          <div class="trade-input-group">
-            <label class="trade-label">Your Name</label>
-            <input type="text" class="trade-input" placeholder="Enter name">
-          </div>
-          <div class="trade-input-group">
-            <label class="trade-label">Confidence Level</label>
-            <select class="trade-input">
-              <option>Low - Just guessing</option>
-              <option>Medium - I have a feeling</option>
-              <option>High - I'm certain</option>
-              <option>Insider Info 👀</option>
+          <div class="trade-header">
+            <div class="trade-mode-tabs">
+              <button class="trade-mode-tab active">Buy</button>
+              <button class="trade-mode-tab">Sell</button>
+            </div>
+            <select class="trade-type-select">
+              <option>Market</option>
+              <option>Limit</option>
             </select>
           </div>
-          <div class="trade-summary">
-            <div class="trade-summary-row">
-              <span>Your Pick</span>
-              <span id="pick-display" style="color: var(--color-syd);">Syd</span>
+
+          <div class="outcome-buttons">
+            <button class="outcome-btn syd active" id="outcome-syd-btn">Syd <span id="syd-price">42¢</span></button>
+            <button class="outcome-btn gigi" id="outcome-gigi-btn">Gigi <span id="gigi-price">58¢</span></button>
+          </div>
+
+          <div class="name-section">
+            <input type="text" class="name-input" id="trader-name" placeholder="Enter your name to trade">
+          </div>
+
+          <div class="amount-section">
+            <div class="amount-header">
+              <span class="amount-label">Amount</span>
+              <span class="amount-value" id="amount-display">$0</span>
             </div>
-            <div class="trade-summary-row">
-              <span>Current Odds</span>
-              <span id="odds-display">42%</span>
-            </div>
-            <div class="trade-summary-row">
-              <span>Potential Bragging Rights</span>
-              <span>Maximum</span>
+            <div class="amount-buttons">
+              <button class="amount-btn" onclick="addAmount(1)">+$1</button>
+              <button class="amount-btn" onclick="addAmount(20)">+$20</button>
+              <button class="amount-btn" onclick="addAmount(100)">+$100</button>
+              <button class="amount-btn" onclick="setMaxAmount()">Max</button>
             </div>
           </div>
-          <button class="trade-btn syd" id="trade-btn" onclick="submitPrediction()">Predict Syd Wins</button>
+
+          <button class="trade-btn" id="trade-btn" onclick="submitTrade()">Trade</button>
+          <p class="trade-disclaimer">By trading, you agree to the <a href="#">Terms of Use</a>.</p>
         </div>
 
         <div class="activity-card">
           <div class="activity-title">
             Recent Activity
-            <span class="activity-count">47 total</span>
+            <span class="activity-count" id="activity-count">0 trades</span>
           </div>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-avatar">🎯</div>
-              <div class="activity-details">
-                <div class="activity-name">BabyWhisperer</div>
-                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
-              </div>
-              <div class="activity-time">2m ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-avatar">🔮</div>
-              <div class="activity-details">
-                <div class="activity-name">TheOracle</div>
-                <div class="activity-action">Predicted <span class="syd">Syd</span></div>
-              </div>
-              <div class="activity-time">5m ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-avatar">👶</div>
-              <div class="activity-details">
-                <div class="activity-name">Anonymous</div>
-                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
-              </div>
-              <div class="activity-time">12m ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-avatar">🍼</div>
-              <div class="activity-details">
-                <div class="activity-name">LuckyGuesser</div>
-                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
-              </div>
-              <div class="activity-time">18m ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-avatar">🎰</div>
-              <div class="activity-details">
-                <div class="activity-name">Dr. Melissa's Cruise Ship</div>
-                <div class="activity-action">Predicted <span class="syd">Syd</span></div>
-              </div>
-              <div class="activity-time">25m ago</div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-avatar">🏆</div>
-              <div class="activity-details">
-                <div class="activity-name">ChampionPredictor</div>
-                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
-              </div>
-              <div class="activity-time">1h ago</div>
-            </div>
+          <div class="activity-list" id="activity-list">
+            <!-- Populated by JS -->
           </div>
         </div>
       </div>
@@ -716,35 +757,168 @@
       }
     });
 
-    // Trade Tab Selection
-    let selectedPick = 'syd';
+    // Trade Logic
+    const marketId = 'who-delivers-first';
+    const sydOdds = 42;
+    const gigiOdds = 58;
+    let selectedOutcome = 'syd';
+    let tradeAmount = 0;
 
-    function selectTradeTab(pick) {
-      selectedPick = pick;
-      document.querySelectorAll('.trade-tab').forEach(t => t.classList.remove('active'));
-      document.querySelector(`.trade-tab.${pick}`).classList.add('active');
+    // Outcome button selection
+    document.getElementById('outcome-syd-btn').addEventListener('click', function() {
+      selectedOutcome = 'syd';
+      this.classList.add('active');
+      document.getElementById('outcome-gigi-btn').classList.remove('active');
+    });
 
-      const btn = document.getElementById('trade-btn');
-      const pickDisplay = document.getElementById('pick-display');
-      const oddsDisplay = document.getElementById('odds-display');
+    document.getElementById('outcome-gigi-btn').addEventListener('click', function() {
+      selectedOutcome = 'gigi';
+      this.classList.add('active');
+      document.getElementById('outcome-syd-btn').classList.remove('active');
+    });
 
-      btn.className = `trade-btn ${pick}`;
-      btn.textContent = `Predict ${pick.charAt(0).toUpperCase() + pick.slice(1)} Wins`;
+    // Amount functions
+    function addAmount(value) {
+      tradeAmount += value;
+      updateAmountDisplay();
+    }
 
-      if (pick === 'syd') {
-        pickDisplay.style.color = '#f472b6';
-        pickDisplay.textContent = 'Syd';
-        oddsDisplay.textContent = '42%';
+    function setMaxAmount() {
+      tradeAmount = 1000;
+      updateAmountDisplay();
+    }
+
+    function updateAmountDisplay() {
+      const display = document.getElementById('amount-display');
+      display.textContent = '$' + tradeAmount;
+      display.style.color = tradeAmount > 0 ? '#f8fafc' : '#94a3b8';
+    }
+
+    // Activity with localStorage
+    const activityList = document.getElementById('activity-list');
+    const STORAGE_KEY = 'laborbets_trades';
+
+    function loadTrades() {
+      const allTrades = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const marketTrades = allTrades.filter(t => t.marketId === marketId);
+
+      if (marketTrades.length === 0) {
+        activityList.innerHTML = '<div class="activity-empty">No activity yet — be the first to trade!</div>';
+        document.getElementById('activity-count').textContent = '0 trades';
       } else {
-        pickDisplay.style.color = '#a78bfa';
-        pickDisplay.textContent = 'Gigi';
-        oddsDisplay.textContent = '58%';
+        activityList.innerHTML = '';
+        marketTrades.reverse().forEach(trade => displayTrade(trade));
+        document.getElementById('activity-count').textContent = marketTrades.length + ' trades';
       }
     }
 
-    function submitPrediction() {
-      alert(`🎉 Prediction submitted for ${selectedPick.charAt(0).toUpperCase() + selectedPick.slice(1)}! May the best baby win!`);
+    function displayTrade(trade) {
+      const outcomeClass = trade.outcome === 'Syd' ? 'syd' : 'gigi';
+      const avatars = ['🎯', '🔮', '👶', '🍼', '🎰', '🏆', '💰', '📈'];
+      const avatar = avatars[Math.abs(trade.name.charCodeAt(0)) % avatars.length];
+      const timeAgo = getTimeAgo(trade.timestamp);
+
+      const activityItem = document.createElement('div');
+      activityItem.className = 'activity-item';
+      activityItem.innerHTML = `
+        <div class="activity-avatar">${avatar}</div>
+        <div class="activity-details">
+          <div class="activity-name">${escapeHtml(trade.name)}</div>
+          <div class="activity-action">Bought <span class="${outcomeClass}">${trade.shares} ${trade.outcome}</span> at ${trade.price}¢</div>
+        </div>
+        <div class="activity-time">${timeAgo}</div>
+      `;
+      activityList.appendChild(activityItem);
     }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function getTimeAgo(timestamp) {
+      const diff = Date.now() - timestamp;
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+      if (minutes < 1) return 'just now';
+      if (minutes < 60) return minutes + 'm ago';
+      if (hours < 24) return hours + 'h ago';
+      return days + 'd ago';
+    }
+
+    function saveTrade(name, outcome, amount, price, shares) {
+      const allTrades = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const trade = {
+        marketId: marketId,
+        marketTitle: 'Who Delivers First?',
+        name: name,
+        outcome: outcome,
+        amount: amount,
+        price: price,
+        shares: shares,
+        timestamp: Date.now()
+      };
+      allTrades.push(trade);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(allTrades));
+      return trade;
+    }
+
+    function submitTrade() {
+      const nameInput = document.getElementById('trader-name');
+      const traderName = nameInput.value.trim();
+
+      if (!traderName) {
+        alert('Please enter your name to place a trade!');
+        nameInput.focus();
+        return;
+      }
+
+      if (tradeAmount === 0) {
+        alert('Please select an amount to trade!');
+        return;
+      }
+
+      const outcome = selectedOutcome === 'syd' ? 'Syd' : 'Gigi';
+      const price = selectedOutcome === 'syd' ? sydOdds : gigiOdds;
+      const shares = Math.floor(tradeAmount / (price / 100));
+
+      // Save and display trade
+      const trade = saveTrade(traderName, outcome, tradeAmount, price, shares);
+
+      // Remove empty message if present
+      const emptyMsg = activityList.querySelector('.activity-empty');
+      if (emptyMsg) emptyMsg.remove();
+
+      // Add to top of list
+      const outcomeClass = outcome === 'Syd' ? 'syd' : 'gigi';
+      const avatars = ['🎯', '🔮', '👶', '🍼', '🎰', '🏆', '💰', '📈'];
+      const avatar = avatars[Math.abs(traderName.charCodeAt(0)) % avatars.length];
+
+      const activityItem = document.createElement('div');
+      activityItem.className = 'activity-item';
+      activityItem.innerHTML = `
+        <div class="activity-avatar">${avatar}</div>
+        <div class="activity-details">
+          <div class="activity-name">${escapeHtml(traderName)}</div>
+          <div class="activity-action">Bought <span class="${outcomeClass}">${shares} ${outcome}</span> at ${price}¢</div>
+        </div>
+        <div class="activity-time">just now</div>
+      `;
+      activityList.insertBefore(activityItem, activityList.firstChild);
+
+      // Update count
+      const count = activityList.querySelectorAll('.activity-item').length;
+      document.getElementById('activity-count').textContent = count + ' trades';
+
+      alert(`🎉 Trade submitted!\n\n${traderName} bought ${shares} shares of "${outcome}" at ${price}¢\nTotal: $${tradeAmount}\n\n(This is a parody - no real money involved!)`);
+      tradeAmount = 0;
+      updateAmountDisplay();
+    }
+
+    // Load trades on page load
+    loadTrades();
   </script>
 </body>
 </html>
