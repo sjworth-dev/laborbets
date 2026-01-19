@@ -998,6 +998,16 @@
 
       .hero {
         padding: 6rem 0 2rem;
+        min-height: auto;
+      }
+
+      .hero-video {
+        display: none;
+      }
+
+      .hero-video-overlay {
+        background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        opacity: 0.15;
       }
 
       .countdown-item {
@@ -1148,7 +1158,7 @@
     <section class="markets">
       <div class="section-header">
         <h2 class="section-title">Prediction Markets</h2>
-        <span class="section-badge">15 Active Markets</span>
+        <span class="section-badge">20 Active Markets</span>
       </div>
 
       <div class="markets-grid">
@@ -1173,7 +1183,7 @@
           </div>
         </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=labor-before-feb26" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Will anyone go into labor before Feb 26?</h3>
             <span class="market-volume">31 predictions</span>
@@ -1192,9 +1202,9 @@
             <div class="market-progress-syd" style="width: 67%; background: var(--color-accent);"></div>
             <div class="market-progress-gigi" style="width: 33%; background: #ef4444;"></div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=same-day-delivery" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Same day delivery? (Both on Feb 26)</h3>
             <span class="market-volume">28 predictions</span>
@@ -1209,9 +1219,9 @@
               <span class="market-option-odds">55%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=who-delivers-first" class="market-card">
           <div class="market-header">
             <h3 class="market-title">If same day, who delivers first?</h3>
             <span class="market-volume">22 predictions</span>
@@ -1226,9 +1236,9 @@
               <span class="market-option-odds">52%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=dr-melissa-cruise" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Will Dr. Melissa make her cruise?</h3>
             <span class="market-volume">35 predictions</span>
@@ -1243,9 +1253,9 @@
               <span class="market-option-odds">28%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=age-gap" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Total time between births?</h3>
             <span class="market-volume">19 predictions</span>
@@ -1264,10 +1274,10 @@
               <span class="market-option-odds">35%</span>
             </div>
           </div>
-        </div>
+        </a>
 
         <!-- Baby Stats Markets -->
-        <div class="market-card">
+        <a href="markets/market.html?m=which-baby-heavier" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Which baby weighs more at birth?</h3>
             <span class="market-volume">24 predictions</span>
@@ -1282,9 +1292,9 @@
               <span class="market-option-odds">56%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=gigi-boy-weight" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Gigi's Boy: Birth weight?</h3>
             <span class="market-volume">18 predictions</span>
@@ -1303,9 +1313,9 @@
               <span class="market-option-odds">20%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=syd-girl-weight" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Syd's Girl: Birth weight?</h3>
             <span class="market-volume">16 predictions</span>
@@ -1324,9 +1334,9 @@
               <span class="market-option-odds">15%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=which-baby-longer" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Which baby is longer at birth?</h3>
             <span class="market-volume">14 predictions</span>
@@ -1341,9 +1351,9 @@
               <span class="market-option-odds">62%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=first-baby-ampm" class="market-card">
           <div class="market-header">
             <h3 class="market-title">First baby born AM or PM?</h3>
             <span class="market-volume">21 predictions</span>
@@ -1358,9 +1368,9 @@
               <span class="market-option-odds">45%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=combined-weight-15lbs" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Combined birth weight over 15 lbs?</h3>
             <span class="market-volume">12 predictions</span>
@@ -1375,9 +1385,9 @@
               <span class="market-option-odds">65%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=which-baby-hair" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Which baby has more hair?</h3>
             <span class="market-volume">27 predictions</span>
@@ -1396,24 +1406,117 @@
               <span class="market-option-odds">10%</span>
             </div>
           </div>
-        </div>
+        </a>
 
-        <div class="market-card">
+        <a href="markets/market.html?m=combined-length-40in" class="market-card">
           <div class="market-header">
-            <h3 class="market-title">First to sleep through the night?</h3>
-            <span class="market-volume">19 predictions</span>
+            <h3 class="market-title">Combined birth length over 40 inches?</h3>
+            <span class="market-volume">14 predictions</span>
           </div>
           <div class="market-options">
-            <div class="market-option syd">
-              <span class="market-option-name">Syd's Girl 👧</span>
-              <span class="market-option-odds">48%</span>
+            <div class="market-option yes">
+              <span class="market-option-name">Yes, tall babies</span>
+              <span class="market-option-odds">45%</span>
             </div>
-            <div class="market-option gigi">
-              <span class="market-option-name">Gigi's Boy 👦</span>
-              <span class="market-option-odds">52%</span>
+            <div class="market-option no">
+              <span class="market-option-name">No, under 40"</span>
+              <span class="market-option-odds">55%</span>
             </div>
           </div>
-        </div>
+        </a>
+
+        <a href="markets/market.html?m=total-labor-time" class="market-card">
+          <div class="market-header">
+            <h3 class="market-title">Total labor time (both combined)?</h3>
+            <span class="market-volume">23 predictions</span>
+          </div>
+          <div class="market-options">
+            <div class="market-option yes">
+              <span class="market-option-name">Under 20 hours</span>
+              <span class="market-option-odds">30%</span>
+            </div>
+            <div class="market-option tie">
+              <span class="market-option-name">20-40 hours</span>
+              <span class="market-option-odds">45%</span>
+            </div>
+            <div class="market-option no">
+              <span class="market-option-name">Over 40 hours</span>
+              <span class="market-option-odds">25%</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="markets/market.html?m=same-calendar-day" class="market-card">
+          <div class="market-header">
+            <h3 class="market-title">Births within same calendar day?</h3>
+            <span class="market-volume">31 predictions</span>
+          </div>
+          <div class="market-options">
+            <div class="market-option yes">
+              <span class="market-option-name">Yes, same day babies</span>
+              <span class="market-option-odds">52%</span>
+            </div>
+            <div class="market-option no">
+              <span class="market-option-name">No, different days</span>
+              <span class="market-option-odds">48%</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="markets/market.html?m=combined-apgar" class="market-card">
+          <div class="market-header">
+            <h3 class="market-title">Combined Apgar scores (1 min) over 16?</h3>
+            <span class="market-volume">11 predictions</span>
+          </div>
+          <div class="market-options">
+            <div class="market-option yes">
+              <span class="market-option-name">Yes, healthy babies</span>
+              <span class="market-option-odds">78%</span>
+            </div>
+            <div class="market-option no">
+              <span class="market-option-name">No, under 16</span>
+              <span class="market-option-odds">22%</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="markets/market.html?m=age-gap-hours" class="market-card">
+          <div class="market-header">
+            <h3 class="market-title">Age gap between babies?</h3>
+            <span class="market-volume">29 predictions</span>
+          </div>
+          <div class="market-options">
+            <div class="market-option yes">
+              <span class="market-option-name">Under 12 hours</span>
+              <span class="market-option-odds">35%</span>
+            </div>
+            <div class="market-option tie">
+              <span class="market-option-name">12-48 hours</span>
+              <span class="market-option-odds">40%</span>
+            </div>
+            <div class="market-option no">
+              <span class="market-option-name">Over 48 hours</span>
+              <span class="market-option-odds">25%</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="markets/market.html?m=both-before-midnight" class="market-card">
+          <div class="market-header">
+            <h3 class="market-title">Both babies born before midnight Feb 26?</h3>
+            <span class="market-volume">26 predictions</span>
+          </div>
+          <div class="market-options">
+            <div class="market-option yes">
+              <span class="market-option-name">Yes, same day</span>
+              <span class="market-option-odds">38%</span>
+            </div>
+            <div class="market-option no">
+              <span class="market-option-name">No, at least one after</span>
+              <span class="market-option-odds">62%</span>
+            </div>
+          </div>
+        </a>
       </div>
     </section>
 
