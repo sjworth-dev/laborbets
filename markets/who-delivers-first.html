@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Who Delivers First? | LaborBets</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --color-primary: #6366f1;
+      --color-secondary: #ec4899;
+      --color-accent: #10b981;
+      --color-warning: #f59e0b;
+      --color-dark: #0f172a;
+      --color-darker: #020617;
+      --color-card: #1e293b;
+      --color-card-hover: #334155;
+      --color-border: #334155;
+      --color-text: #f8fafc;
+      --color-text-muted: #94a3b8;
+      --color-syd: #f472b6;
+      --color-gigi: #a78bfa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--color-darker);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image:
+        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+    }
+
+    nav {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-link {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--color-text); }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .market-header {
+      margin-bottom: 2rem;
+    }
+
+    .market-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    .market-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .market-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .market-meta {
+      display: flex;
+      gap: 2rem;
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 2rem;
+    }
+
+    .chart-section {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .chart-title {
+      font-weight: 600;
+    }
+
+    .chart-timeframes {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .timeframe-btn {
+      background: var(--color-dark);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .timeframe-btn:hover, .timeframe-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: white;
+    }
+
+    .chart-container {
+      height: 350px;
+      position: relative;
+    }
+
+    .current-odds {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .odds-card {
+      background: var(--color-dark);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .odds-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .odds-card.syd { border-color: var(--color-syd); }
+    .odds-card.gigi { border-color: var(--color-gigi); }
+
+    .odds-card-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .odds-card.syd .odds-card-name { color: var(--color-syd); }
+    .odds-card.gigi .odds-card-name { color: var(--color-gigi); }
+
+    .odds-card-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .odds-card-change {
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .odds-card-change.up { color: var(--color-accent); }
+    .odds-card-change.down { color: #ef4444; }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .trade-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .trade-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .trade-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .trade-tab {
+      flex: 1;
+      background: var(--color-dark);
+      border: none;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--color-text-muted);
+    }
+
+    .trade-tab.syd.active {
+      background: rgba(244, 114, 182, 0.2);
+      color: var(--color-syd);
+    }
+
+    .trade-tab.gigi.active {
+      background: rgba(167, 139, 250, 0.2);
+      color: var(--color-gigi);
+    }
+
+    .trade-input-group {
+      margin-bottom: 1rem;
+    }
+
+    .trade-label {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .trade-input {
+      width: 100%;
+      background: var(--color-dark);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      color: var(--color-text);
+      font-size: 1rem;
+    }
+
+    .trade-input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .trade-summary {
+      background: var(--color-dark);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .trade-summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.25rem 0;
+      font-size: 0.9rem;
+    }
+
+    .trade-summary-row span:first-child {
+      color: var(--color-text-muted);
+    }
+
+    .trade-btn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .trade-btn.syd {
+      background: linear-gradient(135deg, var(--color-syd), var(--color-secondary));
+    }
+
+    .trade-btn.gigi {
+      background: linear-gradient(135deg, var(--color-gigi), var(--color-primary));
+    }
+
+    .trade-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .activity-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .activity-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .activity-count {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      background: var(--color-dark);
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+    }
+
+    .activity-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .activity-details {
+      flex: 1;
+    }
+
+    .activity-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .activity-action {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .activity-action .syd { color: var(--color-syd); }
+    .activity-action .gigi { color: var(--color-gigi); }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .info-section {
+      margin-top: 2rem;
+    }
+
+    .info-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .info-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .info-text {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .info-text p {
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 968px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .market-title {
+        font-size: 1.75rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <nav>
+    <div class="nav-content">
+      <a href="../" class="back-link">← Back to Markets</a>
+      <a href="../" class="logo">LaborBets</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="market-header">
+      <div class="market-badge">
+        <span class="dot"></span>
+        ACTIVE MARKET
+      </div>
+      <h1 class="market-title">Who Delivers First?</h1>
+      <div class="market-meta">
+        <span>47 predictions</span>
+        <span>Resolves Feb 26, 2026</span>
+        <span>$0 volume (it's fake)</span>
+      </div>
+    </div>
+
+    <div class="main-grid">
+      <div class="chart-section">
+        <div class="chart-header">
+          <span class="chart-title">Probability Over Time</span>
+          <div class="chart-timeframes">
+            <button class="timeframe-btn">1D</button>
+            <button class="timeframe-btn active">1W</button>
+            <button class="timeframe-btn">1M</button>
+            <button class="timeframe-btn">ALL</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="oddsChart"></canvas>
+        </div>
+        <div class="current-odds">
+          <div class="odds-card syd">
+            <div class="odds-card-name">Syd</div>
+            <div class="odds-card-value">42%</div>
+            <div class="odds-card-change down">-3% today</div>
+          </div>
+          <div class="odds-card gigi">
+            <div class="odds-card-name">Gigi</div>
+            <div class="odds-card-value">58%</div>
+            <div class="odds-card-change up">+3% today</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="trade-card">
+          <div class="trade-title">Make a Prediction</div>
+          <div class="trade-tabs">
+            <button class="trade-tab syd active" onclick="selectTradeTab('syd')">Syd</button>
+            <button class="trade-tab gigi" onclick="selectTradeTab('gigi')">Gigi</button>
+          </div>
+          <div class="trade-input-group">
+            <label class="trade-label">Your Name</label>
+            <input type="text" class="trade-input" placeholder="Enter name">
+          </div>
+          <div class="trade-input-group">
+            <label class="trade-label">Confidence Level</label>
+            <select class="trade-input">
+              <option>Low - Just guessing</option>
+              <option>Medium - I have a feeling</option>
+              <option>High - I'm certain</option>
+              <option>Insider Info 👀</option>
+            </select>
+          </div>
+          <div class="trade-summary">
+            <div class="trade-summary-row">
+              <span>Your Pick</span>
+              <span id="pick-display" style="color: var(--color-syd);">Syd</span>
+            </div>
+            <div class="trade-summary-row">
+              <span>Current Odds</span>
+              <span id="odds-display">42%</span>
+            </div>
+            <div class="trade-summary-row">
+              <span>Potential Bragging Rights</span>
+              <span>Maximum</span>
+            </div>
+          </div>
+          <button class="trade-btn syd" id="trade-btn" onclick="submitPrediction()">Predict Syd Wins</button>
+        </div>
+
+        <div class="activity-card">
+          <div class="activity-title">
+            Recent Activity
+            <span class="activity-count">47 total</span>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-avatar">🎯</div>
+              <div class="activity-details">
+                <div class="activity-name">BabyWhisperer</div>
+                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
+              </div>
+              <div class="activity-time">2m ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-avatar">🔮</div>
+              <div class="activity-details">
+                <div class="activity-name">TheOracle</div>
+                <div class="activity-action">Predicted <span class="syd">Syd</span></div>
+              </div>
+              <div class="activity-time">5m ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-avatar">👶</div>
+              <div class="activity-details">
+                <div class="activity-name">Anonymous</div>
+                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
+              </div>
+              <div class="activity-time">12m ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-avatar">🍼</div>
+              <div class="activity-details">
+                <div class="activity-name">LuckyGuesser</div>
+                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
+              </div>
+              <div class="activity-time">18m ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-avatar">🎰</div>
+              <div class="activity-details">
+                <div class="activity-name">Dr. Melissa's Cruise Ship</div>
+                <div class="activity-action">Predicted <span class="syd">Syd</span></div>
+              </div>
+              <div class="activity-time">25m ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-avatar">🏆</div>
+              <div class="activity-details">
+                <div class="activity-name">ChampionPredictor</div>
+                <div class="activity-action">Predicted <span class="gigi">Gigi</span></div>
+              </div>
+              <div class="activity-time">1h ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="info-card">
+        <div class="info-title">About This Market</div>
+        <div class="info-text">
+          <p><strong>The Setup:</strong> Two friends, Syd and Gigi, are both pregnant and due within days of each other. Gigi's due date is February 26, while Syd's is March 6. However, their doctor (Melissa) is going on a cruise on March 1st, so BOTH have been scheduled for induction on February 26.</p>
+          <p><strong>The Question:</strong> If both are induced on the same day, who delivers first? Or will one go into natural labor before the induction date?</p>
+          <p><strong>Resolution:</strong> This market resolves to whoever delivers their baby first, regardless of whether it's via natural labor or induction.</p>
+          <p><strong>Current Analysis:</strong> Gigi currently leads in the odds (58%) because February 26 is actually her due date, while Syd would be 8 days early. However, Syd supporters argue that being induced early might actually speed things up...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Chart
+    const ctx = document.getElementById('oddsChart').getContext('2d');
+
+    const labels = ['Jan 12', 'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18'];
+    const sydData = [50, 48, 45, 47, 44, 45, 42];
+    const gigiData = [50, 52, 55, 53, 56, 55, 58];
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Syd',
+            data: sydData,
+            borderColor: '#f472b6',
+            backgroundColor: 'rgba(244, 114, 182, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+          },
+          {
+            label: 'Gigi',
+            data: gigiData,
+            borderColor: '#a78bfa',
+            backgroundColor: 'rgba(167, 139, 250, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              color: '#94a3b8',
+              usePointStyle: true,
+              padding: 20
+            }
+          },
+          tooltip: {
+            backgroundColor: '#1e293b',
+            titleColor: '#f8fafc',
+            bodyColor: '#f8fafc',
+            borderColor: '#334155',
+            borderWidth: 1,
+            padding: 12,
+            callbacks: {
+              label: function(context) {
+                return context.dataset.label + ': ' + context.raw + '%';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: {
+              color: 'rgba(51, 65, 85, 0.5)',
+            },
+            ticks: {
+              color: '#94a3b8'
+            }
+          },
+          y: {
+            min: 30,
+            max: 70,
+            grid: {
+              color: 'rgba(51, 65, 85, 0.5)',
+            },
+            ticks: {
+              color: '#94a3b8',
+              callback: function(value) {
+                return value + '%';
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Trade Tab Selection
+    let selectedPick = 'syd';
+
+    function selectTradeTab(pick) {
+      selectedPick = pick;
+      document.querySelectorAll('.trade-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.trade-tab.${pick}`).classList.add('active');
+
+      const btn = document.getElementById('trade-btn');
+      const pickDisplay = document.getElementById('pick-display');
+      const oddsDisplay = document.getElementById('odds-display');
+
+      btn.className = `trade-btn ${pick}`;
+      btn.textContent = `Predict ${pick.charAt(0).toUpperCase() + pick.slice(1)} Wins`;
+
+      if (pick === 'syd') {
+        pickDisplay.style.color = '#f472b6';
+        pickDisplay.textContent = 'Syd';
+        oddsDisplay.textContent = '42%';
+      } else {
+        pickDisplay.style.color = '#a78bfa';
+        pickDisplay.textContent = 'Gigi';
+        oddsDisplay.textContent = '58%';
+      }
+    }
+
+    function submitPrediction() {
+      alert(`🎉 Prediction submitted for ${selectedPick.charAt(0).toUpperCase() + selectedPick.slice(1)}! May the best baby win!`);
+    }
+  </script>
+</body>
+</html>

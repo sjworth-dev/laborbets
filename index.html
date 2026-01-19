@@ -560,6 +560,18 @@
       transition: width 0.5s ease;
     }
 
+    a.market-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    a.market-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    }
+
     /* Cruise Tracker */
     .cruise-section {
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1));
@@ -1121,7 +1133,7 @@
       </div>
 
       <div class="markets-grid">
-        <div class="market-card">
+        <a href="markets/who-delivers-first.html" class="market-card">
           <div class="market-header">
             <h3 class="market-title">Who delivers first?</h3>
             <span class="market-volume">47 predictions</span>
@@ -1140,7 +1152,7 @@
             <div class="market-progress-syd" style="width: 42%;"></div>
             <div class="market-progress-gigi" style="width: 58%;"></div>
           </div>
-        </div>
+        </a>
 
         <div class="market-card">
           <div class="market-header">
