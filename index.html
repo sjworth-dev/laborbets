@@ -118,11 +118,11 @@
     /* Category Navigation */
     .category-nav {
       position: fixed;
-      top: 70px;
+      top: 65px;
       left: 0;
       right: 0;
       z-index: 999;
-      background: rgba(2, 6, 23, 0.95);
+      background: rgba(2, 6, 23, 0.98);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--color-border);
       padding: 0.75rem 2rem;
@@ -132,10 +132,11 @@
       max-width: 1400px;
       margin: 0 auto;
       display: flex;
-      gap: 0.5rem;
+      gap: 0.75rem;
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
     }
 
     .category-nav-content::-webkit-scrollbar {
@@ -143,59 +144,52 @@
     }
 
     .category-tab {
-      padding: 0.5rem 1.25rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 500;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
       color: var(--color-text-muted);
-      background: transparent;
-      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid transparent;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
     }
 
     .category-tab:hover {
       color: var(--color-text);
-      background: var(--color-card);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .category-tab.active {
       color: var(--color-text);
-      background: var(--color-card);
+      background: var(--color-primary);
       border-color: var(--color-primary);
     }
 
-    .category-tab.syd {
-      border-color: var(--color-syd);
-    }
-
     .category-tab.syd.active {
-      background: rgba(244, 114, 182, 0.15);
+      background: var(--color-syd);
       border-color: var(--color-syd);
-      color: var(--color-syd);
-    }
-
-    .category-tab.gigi {
-      border-color: var(--color-gigi);
+      color: #fff;
     }
 
     .category-tab.gigi.active {
-      background: rgba(167, 139, 250, 0.15);
+      background: var(--color-gigi);
       border-color: var(--color-gigi);
-      color: var(--color-gigi);
+      color: #fff;
     }
 
     .category-tab.combined.active {
-      background: rgba(16, 185, 129, 0.15);
+      background: var(--color-accent);
       border-color: var(--color-accent);
-      color: var(--color-accent);
+      color: #fff;
     }
 
     .category-tab.trending.active {
-      background: rgba(245, 158, 11, 0.15);
+      background: var(--color-warning);
       border-color: var(--color-warning);
-      color: var(--color-warning);
+      color: #000;
     }
 
     .nav-stats {
@@ -1086,13 +1080,13 @@
       }
 
       .category-nav {
-        top: 60px;
+        top: 56px;
         padding: 0.5rem 1rem;
       }
 
       .category-tab {
-        padding: 0.4rem 1rem;
-        font-size: 0.8rem;
+        padding: 0.5rem 0.875rem;
+        font-size: 0.75rem;
       }
 
       .hero-video-overlay {
@@ -1258,7 +1252,7 @@
     <section class="markets">
       <div class="section-header">
         <h2 class="section-title">Prediction Markets</h2>
-        <span class="section-badge">28 Active Markets</span>
+        <span class="section-badge">30 Active Markets</span>
       </div>
 
       <div class="markets-grid">
@@ -1785,6 +1779,40 @@
             <div class="market-option no">
               <span class="market-option-name">No, stays warm</span>
               <span class="market-option-odds">92%</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="markets/market.html?m=fed-rate-cut" class="market-card" data-category="trending">
+          <div class="market-header">
+            <h3 class="market-title">📉 Fed cuts rates before first baby cry?</h3>
+            <span class="market-volume">48 predictions</span>
+          </div>
+          <div class="market-options">
+            <div class="market-option yes">
+              <span class="market-option-name">Yes, Powell delivers</span>
+              <span class="market-option-odds">32%</span>
+            </div>
+            <div class="market-option no">
+              <span class="market-option-name">No, rates hold steady</span>
+              <span class="market-option-odds">68%</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="markets/market.html?m=powell-fired" class="market-card" data-category="trending">
+          <div class="market-header">
+            <h3 class="market-title">🏦 Jerome Powell still Fed Chair when babies born?</h3>
+            <span class="market-volume">37 predictions</span>
+          </div>
+          <div class="market-options">
+            <div class="market-option yes">
+              <span class="market-option-name">Yes, still in charge</span>
+              <span class="market-option-odds">85%</span>
+            </div>
+            <div class="market-option no">
+              <span class="market-option-name">No, fired/resigned</span>
+              <span class="market-option-odds">15%</span>
             </div>
           </div>
         </a>
