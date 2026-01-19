@@ -529,6 +529,8 @@
 
     .activity-action .yes { color: var(--color-accent); }
     .activity-action .no { color: #ef4444; }
+    .activity-action .syd { color: var(--color-syd); }
+    .activity-action .gigi { color: var(--color-gigi); }
 
     .activity-time {
       font-size: 0.75rem;
@@ -731,8 +733,8 @@
           </div>
 
           <div class="outcome-buttons">
-            <button class="outcome-btn yes active" id="outcome-yes-btn">Yes <span id="yes-price">--¢</span></button>
-            <button class="outcome-btn no" id="outcome-no-btn">No <span id="no-price">--¢</span></button>
+            <button class="outcome-btn yes active" id="outcome-yes-btn"><span id="option1-name">Yes</span> <span id="yes-price">--¢</span></button>
+            <button class="outcome-btn no" id="outcome-no-btn"><span id="option2-name">No</span> <span id="no-price">--¢</span></button>
           </div>
 
           <div class="name-section">
@@ -1143,13 +1145,17 @@
     // Polymarket-style odds display
     const yesOdds = market.option1.odds;
     const noOdds = market.option2.odds;
+    const option1Label = market.yesNoStyle ? 'Yes' : market.option1.name;
+    const option2Label = market.yesNoStyle ? 'No' : market.option2.name;
     document.getElementById('yes-percent').textContent = yesOdds + '%';
-    document.getElementById('buy-yes-btn').textContent = 'Buy Yes ' + yesOdds + '¢';
-    document.getElementById('buy-no-btn').textContent = 'Buy No ' + noOdds + '¢';
+    document.getElementById('buy-yes-btn').textContent = 'Buy ' + option1Label + ' ' + yesOdds + '¢';
+    document.getElementById('buy-no-btn').textContent = 'Buy ' + option2Label + ' ' + noOdds + '¢';
 
-    // Trade card prices
+    // Trade card prices and option names
     document.getElementById('yes-price').textContent = yesOdds + '¢';
     document.getElementById('no-price').textContent = noOdds + '¢';
+    document.getElementById('option1-name').textContent = market.option1.name;
+    document.getElementById('option2-name').textContent = market.option2.name;
 
 
     // Update title
@@ -1223,7 +1229,12 @@
     }
 
     function displayTrade(trade) {
-      const outcomeClass = trade.outcome === 'Yes' ? 'yes' : 'no';
+      let outcomeClass;
+      if (!market.yesNoStyle) {
+        outcomeClass = trade.outcome === market.option1.name ? 'syd' : 'gigi';
+      } else {
+        outcomeClass = trade.outcome === 'Yes' ? 'yes' : 'no';
+      }
       const avatars = ['🎯', '🔮', '👶', '🍼', '🎰', '🏆', '💰', '📈'];
       const avatar = avatars[Math.abs(trade.name.charCodeAt(0)) % avatars.length];
 
@@ -1289,7 +1300,12 @@
       const trade = saveTrade(name, outcome, amount, price, shares);
 
       // Display the new trade at the top
-      const outcomeClass = outcome === 'Yes' ? 'yes' : 'no';
+      let outcomeClass;
+      if (!market.yesNoStyle) {
+        outcomeClass = outcome === market.option1.name ? 'syd' : 'gigi';
+      } else {
+        outcomeClass = outcome === 'Yes' ? 'yes' : 'no';
+      }
       const avatars = ['🎯', '🔮', '👶', '🍼', '🎰', '🏆', '💰', '📈'];
       const avatar = avatars[Math.abs(name.charCodeAt(0)) % avatars.length];
 
@@ -1464,7 +1480,7 @@
         return;
       }
 
-      const outcome = selectedOutcome === 'yes' ? 'Yes' : 'No';
+      const outcome = selectedOutcome === 'yes' ? market.option1.name : market.option2.name;
       const price = selectedOutcome === 'yes' ? yesOdds : noOdds;
       const shares = Math.floor(tradeAmount / (price / 100));
 
