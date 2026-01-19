@@ -227,7 +227,7 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15));
+      background: linear-gradient(90deg, #0f172a 0%, #1a1033 50%, #0f172a 100%);
       border-bottom: 1px solid rgba(99, 102, 241, 0.3);
       overflow: hidden;
       height: 36px;
@@ -1204,6 +1204,10 @@
         height: 32px;
       }
 
+      .ticker-track {
+        animation: ticker-scroll 30s linear infinite;
+      }
+
       .ticker-item {
         padding: 0.4rem 1rem;
         font-size: 0.7rem;
@@ -1388,8 +1392,6 @@
   <div class="category-nav">
     <div class="category-nav-content">
       <button class="category-tab active" data-category="all">All Markets</button>
-      <button class="category-tab syd" data-category="syd">Syd 👧</button>
-      <button class="category-tab gigi" data-category="gigi">Gigi 👦</button>
       <button class="category-tab combined" data-category="combined">Combined Stats</button>
       <button class="category-tab politics" data-category="politics">🏛️ Politics</button>
       <button class="category-tab world" data-category="world">🌍 World</button>
