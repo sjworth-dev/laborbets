@@ -118,7 +118,7 @@
     /* Category Navigation */
     .category-nav {
       position: fixed;
-      top: 68px;
+      top: 104px;
       left: 0;
       right: 0;
       z-index: 999;
@@ -219,6 +219,86 @@
       border-color: #e879f9;
       color: #000;
     }
+
+    /* Trending Ticker */
+    .ticker-container {
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15));
+      border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+      overflow: hidden;
+      height: 36px;
+    }
+
+    .ticker-track {
+      display: flex;
+      animation: ticker-scroll 60s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ticker-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--color-text);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .ticker-item {
+      text-decoration: none;
+    }
+
+    .ticker-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .ticker-market {
+      font-weight: 500;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ticker-odds {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .ticker-odds.yes {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--color-accent);
+    }
+
+    .ticker-odds.no {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+
+    .ticker-change {
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .ticker-change.up { color: var(--color-accent); }
+    .ticker-change.down { color: #ef4444; }
 
     .nav-stats {
       display: flex;
@@ -1119,8 +1199,18 @@
         background: linear-gradient(180deg, rgba(2, 6, 23, 0.7) 0%, rgba(2, 6, 23, 0.85) 100%);
       }
 
-      .category-nav {
+      .ticker-container {
         top: 52px;
+        height: 32px;
+      }
+
+      .ticker-item {
+        padding: 0.4rem 1rem;
+        font-size: 0.7rem;
+      }
+
+      .category-nav {
+        top: 84px;
         padding: 0.4rem 0.75rem;
       }
 
@@ -1186,6 +1276,114 @@
       </div>
     </div>
   </nav>
+
+  <!-- Trending Ticker -->
+  <div class="ticker-container">
+    <div class="ticker-track">
+      <!-- First set - Top 10 Most Popular -->
+      <a href="markets/market.html?m=who-delivers-first" class="ticker-item">
+        <span class="ticker-market">Who delivers first?</span>
+        <span class="ticker-odds yes">Gigi 58%</span>
+        <span class="ticker-change up">+3%</span>
+      </a>
+      <a href="markets/market.html?m=dr-melissa-cruise" class="ticker-item">
+        <span class="ticker-market">Dr. Melissa makes her cruise?</span>
+        <span class="ticker-odds yes">72%</span>
+        <span class="ticker-change down">-4%</span>
+      </a>
+      <a href="markets/market.html?m=labor-before-feb26" class="ticker-item">
+        <span class="ticker-market">Labor before Feb 26?</span>
+        <span class="ticker-odds yes">67%</span>
+        <span class="ticker-change up">+5%</span>
+      </a>
+      <a href="markets/market.html?m=taylor-engaged" class="ticker-item">
+        <span class="ticker-market">Taylor Swift engaged before births?</span>
+        <span class="ticker-odds no">28%</span>
+        <span class="ticker-change up">+2%</span>
+      </a>
+      <a href="markets/market.html?m=tiktok-ban" class="ticker-item">
+        <span class="ticker-market">TikTok still available?</span>
+        <span class="ticker-odds yes">65%</span>
+        <span class="ticker-change up">+8%</span>
+      </a>
+      <a href="markets/market.html?m=same-day-delivery" class="ticker-item">
+        <span class="ticker-market">Both babies same day?</span>
+        <span class="ticker-odds yes">45%</span>
+        <span class="ticker-change up">+1%</span>
+      </a>
+      <a href="markets/market.html?m=bitcoin-100k" class="ticker-item">
+        <span class="ticker-market">Bitcoin above $100k?</span>
+        <span class="ticker-odds yes">58%</span>
+        <span class="ticker-change down">-6%</span>
+      </a>
+      <a href="markets/market.html?m=which-baby-heavier" class="ticker-item">
+        <span class="ticker-market">Which baby weighs more?</span>
+        <span class="ticker-odds yes">Boy 56%</span>
+        <span class="ticker-change up">+2%</span>
+      </a>
+      <a href="markets/market.html?m=trump-truth-baby" class="ticker-item">
+        <span class="ticker-market">Trump posts about either baby?</span>
+        <span class="ticker-odds no">1%</span>
+        <span class="ticker-change down">-0%</span>
+      </a>
+      <a href="markets/market.html?m=super-bowl-winner" class="ticker-item">
+        <span class="ticker-market">Super Bowl before first contraction?</span>
+        <span class="ticker-odds yes">85%</span>
+        <span class="ticker-change up">+1%</span>
+      </a>
+      <!-- Duplicate set for seamless loop -->
+      <a href="markets/market.html?m=who-delivers-first" class="ticker-item">
+        <span class="ticker-market">Who delivers first?</span>
+        <span class="ticker-odds yes">Gigi 58%</span>
+        <span class="ticker-change up">+3%</span>
+      </a>
+      <a href="markets/market.html?m=dr-melissa-cruise" class="ticker-item">
+        <span class="ticker-market">Dr. Melissa makes her cruise?</span>
+        <span class="ticker-odds yes">72%</span>
+        <span class="ticker-change down">-4%</span>
+      </a>
+      <a href="markets/market.html?m=labor-before-feb26" class="ticker-item">
+        <span class="ticker-market">Labor before Feb 26?</span>
+        <span class="ticker-odds yes">67%</span>
+        <span class="ticker-change up">+5%</span>
+      </a>
+      <a href="markets/market.html?m=taylor-engaged" class="ticker-item">
+        <span class="ticker-market">Taylor Swift engaged before births?</span>
+        <span class="ticker-odds no">28%</span>
+        <span class="ticker-change up">+2%</span>
+      </a>
+      <a href="markets/market.html?m=tiktok-ban" class="ticker-item">
+        <span class="ticker-market">TikTok still available?</span>
+        <span class="ticker-odds yes">65%</span>
+        <span class="ticker-change up">+8%</span>
+      </a>
+      <a href="markets/market.html?m=same-day-delivery" class="ticker-item">
+        <span class="ticker-market">Both babies same day?</span>
+        <span class="ticker-odds yes">45%</span>
+        <span class="ticker-change up">+1%</span>
+      </a>
+      <a href="markets/market.html?m=bitcoin-100k" class="ticker-item">
+        <span class="ticker-market">Bitcoin above $100k?</span>
+        <span class="ticker-odds yes">58%</span>
+        <span class="ticker-change down">-6%</span>
+      </a>
+      <a href="markets/market.html?m=which-baby-heavier" class="ticker-item">
+        <span class="ticker-market">Which baby weighs more?</span>
+        <span class="ticker-odds yes">Boy 56%</span>
+        <span class="ticker-change up">+2%</span>
+      </a>
+      <a href="markets/market.html?m=trump-truth-baby" class="ticker-item">
+        <span class="ticker-market">Trump posts about either baby?</span>
+        <span class="ticker-odds no">1%</span>
+        <span class="ticker-change down">-0%</span>
+      </a>
+      <a href="markets/market.html?m=super-bowl-winner" class="ticker-item">
+        <span class="ticker-market">Super Bowl before first contraction?</span>
+        <span class="ticker-odds yes">85%</span>
+        <span class="ticker-change up">+1%</span>
+      </a>
+    </div>
+  </div>
 
   <div class="category-nav">
     <div class="category-nav-content">

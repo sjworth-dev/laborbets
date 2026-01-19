@@ -189,47 +189,85 @@
     }
 
     .current-odds {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
       margin-top: 1.5rem;
     }
 
-    .odds-card {
-      background: var(--color-dark);
-      border-radius: 12px;
-      padding: 1.25rem;
-      text-align: center;
-      border: 2px solid var(--color-border);
+    .odds-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 1fr;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .odds-percent {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .odds-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .odds-change {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .odds-change.up { color: var(--color-accent); }
+    .odds-change.down { color: #ef4444; }
+
+    .buy-btn {
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
       transition: all 0.2s;
     }
 
-    .odds-card.yes { border-color: var(--color-accent); }
-    .odds-card.no { border-color: #ef4444; }
-
-    .odds-card-name {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
+    .buy-btn.yes {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
-    .odds-card.yes .odds-card-name { color: var(--color-accent); }
-    .odds-card.no .odds-card-name { color: #ef4444; }
-
-    .odds-card-value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.5rem;
-      font-weight: 700;
+    .buy-btn.yes:hover {
+      background: rgba(16, 185, 129, 0.25);
     }
 
-    .odds-card-change {
-      font-size: 0.85rem;
-      margin-top: 0.25rem;
+    .buy-btn.yes.active {
+      background: #10b981;
+      color: #fff;
     }
 
-    .odds-card-change.up { color: var(--color-accent); }
-    .odds-card-change.down { color: #ef4444; }
+    .buy-btn.no {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .buy-btn.no:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    .buy-btn.no.active {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .buy-btn .cent {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
 
     .sidebar {
       display: flex;
@@ -413,6 +451,92 @@
       color: var(--color-text-muted);
     }
 
+    /* Resolution Section */
+    .resolution-section {
+      margin-top: 2rem;
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .resolution-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .resolution-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .resolution-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .resolution-content h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .resolution-content h4:first-child {
+      margin-top: 0;
+    }
+
+    .resolution-content p {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    .resolution-content ul {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .resolution-content li {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      padding: 0.4rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .resolution-content li::before {
+      content: '•';
+      position: absolute;
+      left: 0.5rem;
+      color: var(--color-primary);
+    }
+
+    .resolution-source {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .resolution-source span {
+      color: var(--color-primary);
+    }
+
     @media (max-width: 968px) {
       .main-grid {
         grid-template-columns: 1fr;
@@ -426,8 +550,21 @@
         padding: 1rem;
       }
 
-      .current-odds {
+      .odds-row {
         grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .odds-percent {
+        margin-bottom: 0.5rem;
+      }
+
+      .buy-btn {
+        width: 100%;
+      }
+
+      .resolution-section {
+        padding: 1rem;
       }
     }
   </style>
@@ -471,15 +608,13 @@
           <canvas id="oddsChart"></canvas>
         </div>
         <div class="current-odds">
-          <div class="odds-card yes">
-            <div class="odds-card-name" id="option1-name">Yes</div>
-            <div class="odds-card-value" id="option1-odds">--</div>
-            <div class="odds-card-change up" id="option1-change">+2% today</div>
-          </div>
-          <div class="odds-card no">
-            <div class="odds-card-name" id="option2-name">No</div>
-            <div class="odds-card-value" id="option2-odds">--</div>
-            <div class="odds-card-change down" id="option2-change">-2% today</div>
+          <div class="odds-row">
+            <div class="odds-percent">
+              <span class="odds-value" id="yes-percent">--</span>
+              <span class="odds-change up" id="yes-change">+2%</span>
+            </div>
+            <button class="buy-btn yes" id="buy-yes-btn">Buy Yes --¢</button>
+            <button class="buy-btn no" id="buy-no-btn">Buy No --¢</button>
           </div>
         </div>
       </div>
@@ -530,6 +665,20 @@
             <!-- Populated by JS -->
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Resolution Section -->
+    <div class="resolution-section">
+      <div class="resolution-header">
+        <div class="resolution-icon">📋</div>
+        <div class="resolution-title">Resolution Rules</div>
+      </div>
+      <div class="resolution-content" id="resolution-content">
+        <!-- Populated by JS -->
+      </div>
+      <div class="resolution-source">
+        Resolution Source: <span>Official hospital birth records & family confirmation</span>
       </div>
     </div>
   </div>
@@ -890,15 +1039,63 @@
     // Populate page
     document.getElementById('market-title').textContent = market.title;
     document.getElementById('prediction-count').textContent = market.predictions + ' predictions';
-    document.getElementById('option1-name').textContent = market.option1.name;
-    document.getElementById('option2-name').textContent = market.option2.name;
-    document.getElementById('option1-odds').textContent = market.option1.odds + '%';
-    document.getElementById('option2-odds').textContent = market.option2.odds + '%';
+
+    // Polymarket-style odds display
+    const yesOdds = market.option1.odds;
+    const noOdds = market.option2.odds;
+    document.getElementById('yes-percent').textContent = yesOdds + '%';
+    document.getElementById('buy-yes-btn').textContent = 'Buy Yes ' + yesOdds + '¢';
+    document.getElementById('buy-no-btn').textContent = 'Buy No ' + noOdds + '¢';
+
     document.getElementById('odds-display').textContent = market.option1.odds + '%';
     document.getElementById('activity-count').textContent = market.predictions + ' total';
 
     // Update title
     document.title = market.title + ' | LaborBets';
+
+    // Resolution rules by market type
+    const resolutionRules = {
+      'who-delivers-first': `<h4>Resolution Criteria</h4><p>This market resolves based on the official time of birth recorded by the hospital for each baby.</p><ul><li>The baby with the earlier recorded birth time wins</li><li>Time is measured to the minute as recorded on the birth certificate</li><li>In the extremely unlikely event of identical times, market resolves 50/50</li></ul><h4>Resolution Date</h4><p>This market will resolve within 24 hours of both babies being born.</p>`,
+
+      'labor-before-feb26': `<h4>Resolution Criteria</h4><p>This market resolves YES if either Syd or Gigi begins active labor before 12:00 AM EST on February 26, 2026.</p><ul><li>"Active labor" defined as regular contractions leading to hospital admission</li><li>Scheduled induction on Feb 26 does not count as early labor</li><li>Water breaking before Feb 26 counts as YES</li></ul>`,
+
+      'same-day-delivery': `<h4>Resolution Criteria</h4><p>This market resolves YES if both babies are born on the same calendar day (midnight to midnight EST).</p><ul><li>Both births must occur between 12:00 AM and 11:59 PM on the same date</li><li>The date on each birth certificate will be used as the source of truth</li></ul>`,
+
+      'dr-melissa-cruise': `<h4>Resolution Criteria</h4><p>This market resolves YES if Dr. Melissa successfully boards her cruise ship departing March 1, 2026.</p><ul><li>Resolves YES if she boards the ship, regardless of any complications during labor</li><li>Resolves NO if either birth prevents her from making the cruise departure</li><li>C-sections, extended labor, or NICU situations could affect resolution</li></ul>`,
+
+      'default-baby': `<h4>Resolution Criteria</h4><p>This market resolves based on official measurements recorded by hospital staff at the time of birth.</p><ul><li>Weight measured in pounds and ounces, converted to decimal for comparison</li><li>Length measured in inches</li><li>Apgar scores recorded at 1 minute and 5 minutes post-birth</li></ul><h4>Resolution Date</h4><p>This market will resolve within 48 hours of both babies being born, once official measurements are confirmed.</p>`,
+
+      'default-politics': `<h4>Resolution Criteria</h4><p>This market resolves based on official announcements, confirmed news reports from major outlets (AP, Reuters, NYT, WSJ), or government records.</p><ul><li>Announcement must be official and confirmed by multiple sources</li><li>Rumors or unofficial leaks do not count</li><li>Resolution occurs at the moment of the first baby's birth</li></ul><h4>Resolution Date</h4><p>Status will be evaluated at the exact time of the first baby's birth.</p>`,
+
+      'default-economy': `<h4>Resolution Criteria</h4><p>This market resolves based on official data from relevant financial institutions or government agencies.</p><ul><li>Fed rate: Federal Reserve official announcement</li><li>Bitcoin: CoinGecko spot price at time of first baby's birth</li><li>Mortgage rates: Freddie Mac Primary Mortgage Market Survey</li></ul><h4>Resolution Date</h4><p>Price/rate will be checked at the exact time of the first baby's birth.</p>`,
+
+      'default-culture': `<h4>Resolution Criteria</h4><p>This market resolves based on official announcements, verified social media posts from the relevant parties, or confirmed news reports.</p><ul><li>Must be officially confirmed, not just rumored</li><li>Announcement must occur before the first baby is born</li></ul>`
+    };
+
+    // Determine which resolution to show
+    function getResolution(id) {
+      if (resolutionRules[id]) return resolutionRules[id];
+
+      // Baby-related markets
+      const babyMarkets = ['which-baby-heavier', 'combined-weight-15lbs', 'combined-length-40in', 'total-labor-time', 'age-gap', 'both-before-midnight', 'gigi-boy-weight', 'syd-girl-weight', 'which-baby-longer', 'first-baby-ampm', 'which-baby-hair', 'same-calendar-day', 'combined-apgar', 'age-gap-hours'];
+      if (babyMarkets.includes(id)) return resolutionRules['default-baby'];
+
+      // Politics markets
+      const politicsMarkets = ['greenland-before-birth', 'govt-shutdown', 'powell-fired', 'powell-indicted', 'doge-trillion', 'cabinet-resignation', 'hegseth-secdef', 'newsom-2028', 'rfk-vaccine-policy', 'mass-deportation', 'tariff-china', 'trump-truth-baby', 'scotus-vacancy', 'us-exits-who', 'canada-51st'];
+      if (politicsMarkets.includes(id)) return resolutionRules['default-politics'];
+
+      // Economy markets
+      const economyMarkets = ['bitcoin-100k', 'fed-rate-cut', 'mortgage-rate'];
+      if (economyMarkets.includes(id)) return resolutionRules['default-economy'];
+
+      // Culture markets
+      const cultureMarkets = ['tiktok-ban', 'tiktok-sold', 'taylor-engaged', 'starship-orbit', 'super-bowl-winner', 'ai-doctor', 'snow-nola'];
+      if (cultureMarkets.includes(id)) return resolutionRules['default-culture'];
+
+      return resolutionRules['default-baby'];
+    }
+
+    document.getElementById('resolution-content').innerHTML = getResolution(marketId);
 
     // Generate random activity
     const names = ['BabyWhisperer', 'TheOracle', 'Anonymous', 'LuckyGuesser', 'PredictionPro', 'DataNerd', 'Gambler42', 'MomKnowsBest'];
@@ -1047,6 +1244,19 @@
       const pick = selectedPick === 'yes' ? market.option1.name : market.option2.name;
       alert(`🎉 Prediction submitted for "${pick}"! Good luck!`);
     }
+
+    // Buy button click handlers
+    document.getElementById('buy-yes-btn').addEventListener('click', function() {
+      this.classList.add('active');
+      document.getElementById('buy-no-btn').classList.remove('active');
+      selectTradeTab('yes');
+    });
+
+    document.getElementById('buy-no-btn').addEventListener('click', function() {
+      this.classList.add('active');
+      document.getElementById('buy-yes-btn').classList.remove('active');
+      selectTradeTab('no');
+    });
   </script>
 </body>
 </html>
