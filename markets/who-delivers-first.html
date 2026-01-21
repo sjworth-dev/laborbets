@@ -632,7 +632,7 @@
       <h1 class="market-title">Who Delivers First?</h1>
       <div class="market-meta">
         <span>47 predictions</span>
-        <span>Resolves Feb 26, 2026</span>
+        <span>Resolves late Feb 2026</span>
         <span>$0 volume (it's fake)</span>
       </div>
     </div>
@@ -654,13 +654,13 @@
         <div class="current-odds">
           <div class="odds-card syd">
             <div class="odds-card-name">Syd</div>
-            <div class="odds-card-value">42%</div>
-            <div class="odds-card-change down">-3% today</div>
+            <div class="odds-card-value">25%</div>
+            <div class="odds-card-change down">-17% today</div>
           </div>
           <div class="odds-card gigi">
             <div class="odds-card-name">Gigi</div>
-            <div class="odds-card-value">58%</div>
-            <div class="odds-card-change up">+3% today</div>
+            <div class="odds-card-value">75%</div>
+            <div class="odds-card-change up">+17% today</div>
           </div>
         </div>
       </div>
@@ -679,8 +679,8 @@
           </div>
 
           <div class="outcome-buttons">
-            <button class="outcome-btn syd active" id="outcome-syd-btn">Syd <span id="syd-price">42¢</span></button>
-            <button class="outcome-btn gigi" id="outcome-gigi-btn">Gigi <span id="gigi-price">58¢</span></button>
+            <button class="outcome-btn syd active" id="outcome-syd-btn">Syd <span id="syd-price">25¢</span></button>
+            <button class="outcome-btn gigi" id="outcome-gigi-btn">Gigi <span id="gigi-price">75¢</span></button>
           </div>
 
           <div class="name-section">
@@ -731,7 +731,7 @@
           <li>In the extremely unlikely event of identical times, market resolves 50/50</li>
         </ul>
         <h4>Background</h4>
-        <p>Two friends, Syd and Gigi, are both pregnant and due within days of each other. Gigi's due date is February 26, while Syd's is March 6. However, their doctor (Melissa) is going on a cruise on March 1st, so BOTH have been scheduled for induction on February 26.</p>
+        <p>Two friends, Syd and Gigi, are both pregnant and due within days of each other. Gigi's due date is February 26, while Syd's is March 6. Their doctor (Melissa) is going on a cruise on March 1st, so both need to deliver before then. Gigi is now scheduled for induction on February 22, while Syd will be induced on February 26.</p>
         <h4>Resolution Date</h4>
         <p>This market will resolve within 24 hours of both babies being born.</p>
       </div>
@@ -746,8 +746,8 @@
     const ctx = document.getElementById('oddsChart').getContext('2d');
 
     const labels = ['Jan 12', 'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18'];
-    const sydData = [50, 48, 45, 47, 44, 45, 42];
-    const gigiData = [50, 52, 55, 53, 56, 55, 58];
+    const sydData = [50, 48, 45, 44, 42, 35, 25];
+    const gigiData = [50, 52, 55, 56, 58, 65, 75];
 
     new Chart(ctx, {
       type: 'line',
@@ -835,8 +835,8 @@
 
     // Trade Logic
     const marketId = 'who-delivers-first';
-    const sydOdds = 42;
-    const gigiOdds = 58;
+    const sydOdds = 25;
+    const gigiOdds = 75;
     let selectedOutcome = 'syd';
     let tradeAmount = 0;
 

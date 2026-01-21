@@ -791,22 +791,22 @@
       'who-delivers-first': {
         title: 'Who Delivers First?',
         predictions: 47,
-        option1: { name: 'Syd', odds: 42, color: '#f472b6' },
-        option2: { name: 'Gigi', odds: 58, color: '#a78bfa' },
+        option1: { name: 'Syd', odds: 25, color: '#f472b6' },
+        option2: { name: 'Gigi', odds: 75, color: '#a78bfa' },
         yesNoStyle: false
       },
-      'labor-before-feb26': {
-        title: 'Will anyone go into labor before Feb 26?',
+      'labor-before-feb22': {
+        title: 'Will anyone go into labor before Feb 22?',
         predictions: 31,
-        option1: { name: 'Yes', odds: 67 },
-        option2: { name: 'No', odds: 33 },
+        option1: { name: 'Yes', odds: 45 },
+        option2: { name: 'No', odds: 55 },
         yesNoStyle: true
       },
       'same-day-delivery': {
-        title: 'Same day delivery? (Both on Feb 26)',
+        title: 'Same day delivery? (Different induction dates)',
         predictions: 28,
-        option1: { name: 'Yes, same day', odds: 45 },
-        option2: { name: 'No, different days', odds: 55 },
+        option1: { name: 'Yes, same day', odds: 15 },
+        option2: { name: 'No, different days', odds: 85 },
         yesNoStyle: true
       },
       'dr-melissa-cruise': {
@@ -847,15 +847,15 @@
       'age-gap': {
         title: 'Age gap between babies?',
         predictions: 29,
-        option1: { name: 'Under 24 hours', odds: 60 },
-        option2: { name: 'Over 24 hours', odds: 40 },
+        option1: { name: 'Under 4 days', odds: 75 },
+        option2: { name: 'Over 4 days', odds: 25 },
         yesNoStyle: true
       },
-      'both-before-midnight': {
-        title: 'Both babies born before midnight Feb 26?',
+      'both-by-feb26': {
+        title: 'Both babies born by end of Feb 26?',
         predictions: 26,
-        option1: { name: 'Yes, same day', odds: 38 },
-        option2: { name: 'At least one after', odds: 62 },
+        option1: { name: 'Yes, both by Feb 26', odds: 72 },
+        option2: { name: 'No, Syd takes longer', odds: 28 },
         yesNoStyle: true
       },
       'gigi-boy-weight': {
@@ -1165,9 +1165,11 @@
     const resolutionRules = {
       'who-delivers-first': `<h4>Resolution Criteria</h4><p>This market resolves based on the official time of birth recorded by the hospital for each baby.</p><ul><li>The baby with the earlier recorded birth time wins</li><li>Time is measured to the minute as recorded on the birth certificate</li><li>In the extremely unlikely event of identical times, market resolves 50/50</li></ul><h4>Resolution Date</h4><p>This market will resolve within 24 hours of both babies being born.</p>`,
 
-      'labor-before-feb26': `<h4>Resolution Criteria</h4><p>This market resolves YES if either Syd or Gigi begins active labor before 12:00 AM EST on February 26, 2026.</p><ul><li>"Active labor" defined as regular contractions leading to hospital admission</li><li>Scheduled induction on Feb 26 does not count as early labor</li><li>Water breaking before Feb 26 counts as YES</li></ul>`,
+      'labor-before-feb22': `<h4>Resolution Criteria</h4><p>This market resolves YES if either Syd or Gigi begins active labor before 12:00 AM EST on February 22, 2026 (Gigi's induction date).</p><ul><li>"Active labor" defined as regular contractions leading to hospital admission</li><li>Scheduled induction does not count as early labor</li><li>Water breaking before Feb 22 counts as YES</li></ul>`,
 
-      'same-day-delivery': `<h4>Resolution Criteria</h4><p>This market resolves YES if both babies are born on the same calendar day (midnight to midnight EST).</p><ul><li>Both births must occur between 12:00 AM and 11:59 PM on the same date</li><li>The date on each birth certificate will be used as the source of truth</li></ul>`,
+      'same-day-delivery': `<h4>Resolution Criteria</h4><p>This market resolves YES if both babies are born on the same calendar day, despite different induction dates (Gigi: Feb 22, Syd: Feb 26).</p><ul><li>Both births must occur between 12:00 AM and 11:59 PM on the same date</li><li>The date on each birth certificate will be used as the source of truth</li></ul>`,
+
+      'both-by-feb26': `<h4>Resolution Criteria</h4><p>This market resolves YES if both babies are born by the end of February 26, 2026 (Syd's induction date).</p><ul><li>Gigi is induced Feb 22, Syd is induced Feb 26</li><li>Both must be delivered by 11:59 PM on Feb 26 for YES</li><li>If Syd's labor extends past midnight, resolves NO</li></ul>`,
 
       'dr-melissa-cruise': `<h4>Resolution Criteria</h4><p>This market resolves YES if Dr. Melissa successfully boards her cruise ship departing March 1, 2026.</p><ul><li>Resolves YES if she boards the ship, regardless of any complications during labor</li><li>Resolves NO if either birth prevents her from making the cruise departure</li><li>C-sections, extended labor, or NICU situations could affect resolution</li></ul>`,
 
@@ -1185,7 +1187,7 @@
       if (resolutionRules[id]) return resolutionRules[id];
 
       // Baby-related markets
-      const babyMarkets = ['which-baby-heavier', 'combined-weight-15lbs', 'combined-length-40in', 'total-labor-time', 'age-gap', 'both-before-midnight', 'gigi-boy-weight', 'syd-girl-weight', 'which-baby-longer', 'first-baby-ampm', 'which-baby-hair', 'same-calendar-day', 'combined-apgar', 'age-gap-hours'];
+      const babyMarkets = ['which-baby-heavier', 'combined-weight-15lbs', 'combined-length-40in', 'total-labor-time', 'age-gap', 'both-by-feb26', 'gigi-boy-weight', 'syd-girl-weight', 'which-baby-longer', 'first-baby-ampm', 'which-baby-hair', 'same-calendar-day', 'combined-apgar', 'age-gap-hours'];
       if (babyMarkets.includes(id)) return resolutionRules['default-baby'];
 
       // Politics markets
