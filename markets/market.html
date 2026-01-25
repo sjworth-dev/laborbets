@@ -961,7 +961,8 @@
         predictions: 44,
         option1: { name: 'Yes, SB before labor', odds: 85 },
         option2: { name: 'No, early labor', odds: 15 },
-        yesNoStyle: true
+        yesNoStyle: true,
+        note: 'Super Bowl LX is Feb 9, 2026 in New Orleans'
       },
       'ai-doctor': {
         title: "🤖 AI passes medical boards before Dr. Melissa's cruise?",
@@ -1092,9 +1093,10 @@
       'gaza-ceasefire': {
         title: '🕊️ Gaza permanent ceasefire before babies?',
         predictions: 48,
-        option1: { name: 'Yes, lasting peace', odds: 22 },
-        option2: { name: 'No, conflict continues', odds: 78 },
-        yesNoStyle: true
+        option1: { name: 'Yes, lasting peace', odds: 65 },
+        option2: { name: 'No, conflict resumes', odds: 35 },
+        yesNoStyle: true,
+        note: 'Ceasefire deal announced Jan 2025 - odds updated'
       },
       'china-taiwan-action': {
         title: '🇹🇼 China military action on Taiwan before births?',
@@ -1106,9 +1108,11 @@
       'trudeau-out': {
         title: '🇨🇦 Trudeau no longer PM when babies born?',
         predictions: 42,
-        option1: { name: "Yes, he's out", odds: 88 },
-        option2: { name: 'No, still PM', odds: 12 },
-        yesNoStyle: true
+        option1: { name: "Yes, he's out", odds: 99 },
+        option2: { name: 'No, still PM', odds: 1 },
+        yesNoStyle: true,
+        resolved: true,
+        resolvedNote: 'Trudeau resigned as PM in January 2025'
       },
       'north-korea-test': {
         title: '🇰🇵 North Korea nuclear test before babies?',
@@ -1335,7 +1339,7 @@
 
     // Chart
     const ctx = document.getElementById('oddsChart').getContext('2d');
-    const labels = ['Jan 12', 'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18'];
+    const labels = ['Jan 19', 'Jan 20', 'Jan 21', 'Jan 22', 'Jan 23', 'Jan 24', 'Jan 25'];
 
     // Generate random-ish data that ends at current odds
     const option1End = market.option1.odds;
