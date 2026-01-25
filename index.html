@@ -2667,18 +2667,6 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // Animate odds slightly for realism
-    setInterval(() => {
-      const sydOdds = 25 + (Math.random() * 2 - 1);
-      const gigiOdds = 100 - sydOdds;
-
-      document.querySelectorAll('.competitor-card.syd .odds-value').forEach(el => {
-        el.textContent = sydOdds.toFixed(0) + '%';
-      });
-      document.querySelectorAll('.competitor-card.gigi .odds-value').forEach(el => {
-        el.textContent = gigiOdds.toFixed(0) + '%';
-      });
-    }, 5000);
 
     // Category Filtering
     const categoryTabs = document.querySelectorAll('.category-tab');
