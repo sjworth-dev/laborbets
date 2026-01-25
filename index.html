@@ -4,7 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LaborBets | Who Delivers First?</title>
-  <meta name="description" content="The ultimate prediction market for the Worth-Gigi baby race. Place your bets.">
+  <meta name="description" content="The ultimate prediction market for the Worth-Gigi baby race. Two friends, two babies, one winner. Place your bets!">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="LaborBets - Who Delivers First?">
+  <meta property="og:description" content="Two friends pregnant at the same time. Different due dates. Same doctor. Who will deliver first? Make your prediction!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://laborbets.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LaborBets - Who Delivers First?">
+  <meta name="twitter:description" content="The ultimate baby prediction market. Syd vs Gigi - who delivers first?">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#6366f1">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -706,6 +718,36 @@
       border-radius: 50px;
     }
 
+    .market-badge-new {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #10b981, #059669);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-left: 0.5rem;
+      animation: pulse-new 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-new {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .market-badge-hot {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-left: 0.5rem;
+    }
+
     .market-options {
       display: flex;
       flex-direction: column;
@@ -1362,15 +1404,20 @@
         <span class="ticker-odds yes">Boy 56%</span>
         <span class="ticker-change up">+2%</span>
       </a>
-      <a href="markets/market.html?m=trump-truth-baby" class="ticker-item">
-        <span class="ticker-market">Trump posts about either baby?</span>
-        <span class="ticker-odds no">1%</span>
-        <span class="ticker-change down">-0%</span>
+      <a href="markets/market.html?m=both-healthy" class="ticker-item">
+        <span class="ticker-market">Both babies healthy (Apgar 7+)?</span>
+        <span class="ticker-odds yes">92%</span>
+        <span class="ticker-change up">NEW</span>
       </a>
       <a href="markets/market.html?m=super-bowl-winner" class="ticker-item">
-        <span class="ticker-market">Super Bowl before first contraction?</span>
+        <span class="ticker-market">Super Bowl (Feb 9) before labor?</span>
         <span class="ticker-odds yes">85%</span>
         <span class="ticker-change up">+1%</span>
+      </a>
+      <a href="markets/market.html?m=valentines-baby" class="ticker-item">
+        <span class="ticker-market">Valentine's Day baby?</span>
+        <span class="ticker-odds no">5%</span>
+        <span class="ticker-change up">NEW</span>
       </a>
       <!-- Duplicate set for seamless loop -->
       <a href="markets/market.html?m=who-delivers-first" class="ticker-item">
@@ -1413,15 +1460,20 @@
         <span class="ticker-odds yes">Boy 56%</span>
         <span class="ticker-change up">+2%</span>
       </a>
-      <a href="markets/market.html?m=trump-truth-baby" class="ticker-item">
-        <span class="ticker-market">Trump posts about either baby?</span>
-        <span class="ticker-odds no">1%</span>
-        <span class="ticker-change down">-0%</span>
+      <a href="markets/market.html?m=both-healthy" class="ticker-item">
+        <span class="ticker-market">Both babies healthy (Apgar 7+)?</span>
+        <span class="ticker-odds yes">92%</span>
+        <span class="ticker-change up">NEW</span>
       </a>
       <a href="markets/market.html?m=super-bowl-winner" class="ticker-item">
-        <span class="ticker-market">Super Bowl before first contraction?</span>
+        <span class="ticker-market">Super Bowl (Feb 9) before labor?</span>
         <span class="ticker-odds yes">85%</span>
         <span class="ticker-change up">+1%</span>
+      </a>
+      <a href="markets/market.html?m=valentines-baby" class="ticker-item">
+        <span class="ticker-market">Valentine's Day baby?</span>
+        <span class="ticker-odds no">5%</span>
+        <span class="ticker-change up">NEW</span>
       </a>
     </div>
   </div>
@@ -1534,7 +1586,7 @@
       <div class="markets-grid">
         <a href="markets/who-delivers-first.html" class="market-card" data-category="trending">
           <div class="market-header">
-            <h3 class="market-title">Who delivers first?</h3>
+            <h3 class="market-title">Who delivers first?<span class="market-badge-hot">Hot</span></h3>
             <span class="market-volume">47 predictions</span>
           </div>
           <div class="market-options">
@@ -2281,7 +2333,7 @@
         <!-- New Baby Markets -->
         <a href="markets/market.html?m=both-healthy" class="market-card" data-category="combined trending">
           <div class="market-header">
-            <h3 class="market-title">💚 Both babies healthy at birth (Apgar 7+)?</h3>
+            <h3 class="market-title">💚 Both babies healthy at birth (Apgar 7+)?<span class="market-badge-new">New</span></h3>
             <span class="market-volume">62 predictions</span>
           </div>
           <div class="market-options">
@@ -2298,7 +2350,7 @@
 
         <a href="markets/market.html?m=c-section" class="market-card" data-category="combined">
           <div class="market-header">
-            <h3 class="market-title">🏥 Either birth requires C-section?</h3>
+            <h3 class="market-title">🏥 Either birth requires C-section?<span class="market-badge-new">New</span></h3>
             <span class="market-volume">34 predictions</span>
           </div>
           <div class="market-options">
@@ -2315,7 +2367,7 @@
 
         <a href="markets/market.html?m=valentines-baby" class="market-card" data-category="combined trending">
           <div class="market-header">
-            <h3 class="market-title">💝 Either baby born on Valentine's Day?</h3>
+            <h3 class="market-title">💝 Either baby born on Valentine's Day?<span class="market-badge-new">New</span></h3>
             <span class="market-volume">22 predictions</span>
           </div>
           <div class="market-options">
@@ -2368,37 +2420,37 @@
           <div>#</div>
           <div>Name</div>
           <div>Pick</div>
-          <div>Date</div>
+          <div>When</div>
         </div>
         <div class="leaderboard-row">
           <div class="leaderboard-rank">1</div>
-          <div class="leaderboard-name">Anonymous</div>
+          <div class="leaderboard-name">BabyWhisperer99</div>
           <div class="leaderboard-pick gigi">Gigi</div>
-          <div class="leaderboard-date">Feb 22</div>
+          <div class="leaderboard-date">2h ago</div>
         </div>
         <div class="leaderboard-row">
           <div class="leaderboard-rank">2</div>
-          <div class="leaderboard-name">Baby Expert 2000</div>
+          <div class="leaderboard-name">TeamSyd4Life</div>
           <div class="leaderboard-pick syd">Syd</div>
-          <div class="leaderboard-date">Feb 26</div>
+          <div class="leaderboard-date">5h ago</div>
         </div>
         <div class="leaderboard-row">
           <div class="leaderboard-rank">3</div>
-          <div class="leaderboard-name">Lucky Guesser</div>
+          <div class="leaderboard-name">Anonymous</div>
           <div class="leaderboard-pick gigi">Gigi</div>
-          <div class="leaderboard-date">Feb 22</div>
+          <div class="leaderboard-date">8h ago</div>
         </div>
         <div class="leaderboard-row">
           <div class="leaderboard-rank">4</div>
           <div class="leaderboard-name">The Oracle</div>
           <div class="leaderboard-pick syd">Syd</div>
-          <div class="leaderboard-date">Feb 26</div>
+          <div class="leaderboard-date">1d ago</div>
         </div>
         <div class="leaderboard-row">
           <div class="leaderboard-rank">5</div>
-          <div class="leaderboard-name">Dr. Melissa's Cruise Ship</div>
+          <div class="leaderboard-name">Dr. Melissa Fan Club</div>
           <div class="leaderboard-pick gigi">Gigi</div>
-          <div class="leaderboard-date">Feb 23</div>
+          <div class="leaderboard-date">2d ago</div>
         </div>
       </div>
     </section>
