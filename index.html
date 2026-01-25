@@ -2619,7 +2619,12 @@
     <div class="footer-emojis">👶 🍼 🎰 👶</div>
     <p class="footer-disclaimer">This is a parody website. No actual betting or money is involved. Just fun predictions between friends and family for Syd & Gigi's babies!</p>
     <p>Made with ❤️ for the Worth & Gigi families</p>
-    <p style="font-size: 0.75rem; margin-top: 1rem; opacity: 0.6;">Odds last updated: January 25, 2026</p>
+    <p style="font-size: 0.85rem; margin-top: 1.5rem;">
+      <a href="https://polymarket.com" target="_blank" rel="noopener" style="color: var(--color-primary); text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <span style="background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.7rem; font-weight: 600; color: white;">Odds powered by Polymarket</span>
+      </a>
+    </p>
+    <p style="font-size: 0.75rem; margin-top: 0.75rem; opacity: 0.6;">Last synced: January 25, 2026</p>
   </footer>
 
   <script>
@@ -2728,66 +2733,6 @@
       filterByCategory(urlCategory);
     }
 
-    // Polymarket Live Odds Integration
-    const polymarketMappings = {
-      // Maps our market IDs to Polymarket event slugs
-      'musk-richest': 'musk-richest-dec-31-2026',
-      'bitcoin-150k': 'what-price-will-bitcoin-hit-before-2027',
-      'tesla-fsd': 'tesla-unsupervised-fsd-by-june-30',
-      'spacex-ipo': 'spacex-ipo-2026'
-    };
-
-    async function fetchPolymarketOdds() {
-      try {
-        const response = await fetch('https://gamma-api.polymarket.com/events?active=true&closed=false&limit=50');
-        if (!response.ok) return;
-
-        const events = await response.json();
-
-        // Update markets with live data
-        events.forEach(event => {
-          if (event.markets && event.markets[0]) {
-            const market = event.markets[0];
-            const prices = market.outcomePrices;
-            if (prices && prices.length >= 2) {
-              const yesOdds = Math.round(parseFloat(prices[0]) * 100);
-              const noOdds = Math.round(parseFloat(prices[1]) * 100);
-
-              // Find matching market card and update
-              Object.entries(polymarketMappings).forEach(([ourId, polySlug]) => {
-                if (event.slug && event.slug.includes(polySlug.split('-')[0])) {
-                  const card = document.querySelector(`a[href*="${ourId}"]`);
-                  if (card) {
-                    const yesEl = card.querySelector('.market-option.yes .market-option-odds');
-                    const noEl = card.querySelector('.market-option.no .market-option-odds');
-                    if (yesEl) yesEl.textContent = yesOdds + '%';
-                    if (noEl) noEl.textContent = noOdds + '%';
-
-                    // Add live indicator
-                    const title = card.querySelector('.market-title');
-                    if (title && !title.querySelector('.live-indicator')) {
-                      const liveSpan = document.createElement('span');
-                      liveSpan.className = 'live-indicator';
-                      liveSpan.style.cssText = 'display:inline-block;width:6px;height:6px;background:#10b981;border-radius:50%;margin-left:6px;animation:pulse 1.5s infinite;';
-                      title.appendChild(liveSpan);
-                    }
-                  }
-                }
-              });
-            }
-          }
-        });
-
-        console.log('Polymarket odds updated');
-      } catch (e) {
-        // Silently fail - CORS or network issues, fall back to static odds
-        console.log('Using static odds (Polymarket API unavailable)');
-      }
-    }
-
-    // Fetch live odds on load and every 60 seconds
-    fetchPolymarketOdds();
-    setInterval(fetchPolymarketOdds, 60000);
   </script>
 </body>
 </html>
